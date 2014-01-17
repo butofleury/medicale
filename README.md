@@ -3,4 +3,4 @@ medicale
 
 Patient software
 
-Web based application for monitoring patients
+Web application for monitoring patients
