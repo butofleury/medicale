@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+   <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+   <link rel="stylesheet" href="../design/style.css" />
+  <h:form>
+  <title><h:outputText value="#{login.nameUser}"/>-<h:outputText value="#{login.nomCat}" />| Patient Software</title>
+  </h:form>
+  </head>
+
+  <body>
+  
+  
+      <h:form>
+      
+      <a4j:keepAlive beanName="login" />
+      <a4j:keepAlive beanName="administrateur" />
+      <a4j:keepAlive beanName="recherche" />
+      <a4j:keepAlive beanName="service" />
+  	  <a4j:keepAlive beanName="consultation" />	
+     <ui:include src="/root/entete.xhtml" />
+     
+     <div id="corps"> 
+           
+      <ui:include src="/root/menuPrincipale.xhtml" />
+           <div id="centre">
+           
+                 <div id="lien">
+			          <h:graphicImage value="/images/lienPro.png" />
+			     </div>
+                
+         <a4j:outputPanel id="main-panel">
+               <h:panelGrid id="admin" rendered="#{administrateur.user}">
+               
+     	             <div id="menuRecherche">
+		                           <h:panelGrid columns="">
+		                           
+		                           
+		                               <h:outputText value="Utilisateur" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                           </h:panelGrid>
+		                        </div>
+      		          <h:panelGrid style="margin-left:8%">
+      		                 
+      		               <a4j:include viewId="/administrateur/userForm.xhtml"/>
+      		              
+      		          </h:panelGrid>
+      		           
+			      				
+               </h:panelGrid>
+               
+               <h:panelGrid id="prest" rendered="#{administrateur.prestation}">
+                    
+                     <div id="menuPrestation">
+		                          <h:panelGrid columns="3">
+		                            <a4j:commandLink oncomplete="#{rich:component('newPrestation')}.show();" >
+			                     
+			                             <h:graphicImage value="/images/nouvellePrestation.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer" id="prestationLink"/>
+			                             
+			                        
+			                        </a4j:commandLink>
+			                        
+			                        <a4j:commandLink onclick="#{rich:component('newChambre')}.show();" >
+			                     
+			                             <h:graphicImage value="/images/chambreNew.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer" id="chambreLink"/>
+			                             
+			                        
+			                        </a4j:commandLink>
+		                            <h:outputText value="Prestation" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                          </h:panelGrid>
+		             </div>
+                    <h:panelGrid style="margin-left:20%">
+                         
+                          <ui:include src="/administrateur/prestationForm.xhtml" />    
+                         
+                    </h:panelGrid>
+               </h:panelGrid>
+               
+               <h:panelGrid id="patientMenu" rendered="#{administrateur.patient}">
+               
+                      <div id="menuPatient">
+                         <h:panelGrid columns="2">
+                              
+		                         
+		                       <h:outputText value="Patient" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                  </h:panelGrid>      
+		              </div>
+                    <h:panelGrid style="margin-left:0%">
+                         <ui:include src="/administrateur/chronologie.xhtml"/>
+                    </h:panelGrid>
+                    
+               </h:panelGrid>
+               
+               <h:panelGrid  id="rechercheMenu" rendered="#{administrateur.recherche}">
+                      <div id="menuRecherche">
+		                         <h:panelGrid columns="">
+		                            
+		                            <h:outputText value="Recherche" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                         </h:panelGrid>
+		              </div>
+                    <h:panelGrid style="margin-left:5%">
+                          <ui:include src="/administrateur/rechercheForm.xhtml"/>
+                    </h:panelGrid>
+                    
+               </h:panelGrid>
+               
+               <h:panelGrid rendered="#{administrateur.service}">
+                        <div id="menuService">
+		                       <h:panelGrid columns="2">
+		                            <a4j:commandLink oncomplete="#{rich:component('nouveauService')}.show()" >
+			                     
+			                             <h:graphicImage value="/images/serviceNew60.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+			                             <a4j:support event="onclick" action="#{service.initialiseValue}" reRender="contenuService"/>
+			                        
+			                        </a4j:commandLink>
+			                        
+			                        
+			                        
+		                            <h:outputText value="Service" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                       </h:panelGrid>
+		                </div>
+               
+                   <h:panelGrid>
+                          <ui:include src="/administrateur/serviceForm.xhtml" />
+                   </h:panelGrid>
+               </h:panelGrid>
+               
+               <h:panelGrid rendered="#{administrateur.facture}">
+                   <div id="factureMenu">
+                     <h:outputText value="Facture" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+                   </div>
+                   <h:panelGrid style="margin-left:0%">
+                      <a4j:include viewId="/administrateur/factureForm.xhtml"/>
+                   </h:panelGrid>
+               </h:panelGrid>
+         </a4j:outputPanel>
+        
+           </div>
+  
+    </div>
+       <ui:include src="/root/pied.xhtml" />
+       
+      
+  </h:form>
+  
+       <rich:modalPanel id="nouveauMedecin" width="520" height="500">
+  				<f:facet name="header">Nouveau Medecin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('nouveauMedecin')}.hide();" style="cursor:pointer"/>
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formNewMedecin.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifMedecin" width="520" height="545">
+  				<f:facet name="header">Modification d'un Medecin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifMedecin')}.hide();" style="cursor:pointer" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifMedecin.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="newInfirmier" width="520" height="550">
+  				<f:facet name="header">Nouvel Infirmier</f:facet>
+  					<f:facet name="controls">
+  						<h:graphicImage value="/images/close.png" onclick="#{rich:component('newInfirmier')}.hide();" style="cursor:pointer"/>
+  					</f:facet>
+  				<a4j:include viewId="/administrateur/formNewInfirmier.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifInfirmier" width="520" height="500">
+  				<f:facet name="header">Modification d'un Infirmier</f:facet>
+  					<f:facet name="controls">
+  						<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifInfirmier')}.hide();" style="cursor:pointer"/>
+  					</f:facet>
+  				<a4j:include viewId="/administrateur/formModifInfirmier.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="newReceptionniste" width="520" height="500">
+  				<f:facet name="header">Nouveau Receptionniste</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('newReceptionniste')}.hide();" />
+  						</f:facet>
+  					<a4j:include viewId="/administrateur/formNewReceptionniste.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifReceptionniste" width="520" height="500">
+  				<f:facet name="header">Modification d'un Receptionniste</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifReceptionniste')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifReceptionniste.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifNewLaborantin" width="520" height="500">
+  				<f:facet name="header">Nouveau Laborantin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifNewLaborantin')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formNewLaborantin.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifLaborantin" width="520" height="500">
+  				<f:facet name="header">Modification d'un Laborantin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifLaborantin')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifLaborantin.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="newPrestation" width="340" height="220">
+  				<f:facet name="header">Nouvelle Prestation</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('newPrestation')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formPrestation.xhtml"/>
+  			</rich:modalPanel>
+  				
+  			<rich:modalPanel id="modifPrestation" width="390" height="250">
+  				<f:facet name="header">Modification d'une Prestation</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifPrestation')}.hide();" />
+  						</f:facet>				
+  				<a4j:include viewId="/administrateur/formModifPrestation.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="affichePrestaCat">
+  				<f:facet name="header">Liste des Prestations</f:facet>
+  					<f:facet name="controls">
+  						<h:graphicImage value="/images/close.png" onclick="#{rich:component('affichePrestaCat')}.hide();"/>
+  					</f:facet>
+  				<a4j:include viewId="/administrateur/affichePrestaParCategorie.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifMedecinTrouve" width="520" height="500">
+  				<f:facet name="header">Modification d'un Medecin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifMedecinTrouve')}.hide();" style="cursor:pointer" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifMedTrouve.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifInfTrouve" width="520" height="500">
+  				<f:facet name="header">Modification d'un infirmier</f:facet>
+  					<f:facet name="controls">
+  			<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifInfTrouve')}.hide();" style="cursor:pointer"/>	
+  					</f:facet>
+  			<a4j:include viewId="/administrateur/formModifInfTrouve.xhtml"/>	
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifReceptTrouve" width="520" height="500">
+  				<f:facet name="header">Modification d'un Receptionniste</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifReceptTrouve')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifReceptTrouve.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="modifLabTrouve" width="520" height="500">
+  				<f:facet name="header">Modification d'un Laborantin</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifLabTrouve')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifLaborantinTrouve.xhtml"/>
+  			</rich:modalPanel>
+  			
+  			
+  			
+  			 <rich:modalPanel id="nouveauService" width="500" height="200">
+			     <f:facet name="header">Nouveau service</f:facet>
+					         <f:facet name="controls">
+							   <h:graphicImage value="/images/close.png" onclick="#{rich:component('nouveauService')}.hide()" style="cursor:pointer"/>
+						     </f:facet>
+				    <ui:include src="/administrateur/suivantService.xhtml" />
+             </rich:modalPanel>
+             
+  			<rich:modalPanel id="modifierService" width="400" height="300">
+  				<f:facet name="header">Modification de Service</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifierService')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/formModifService.xhtml" />
+  			</rich:modalPanel>
+  			
+  			
+  			<rich:modalPanel id="nouvelleAffection" width="700" height="400">
+  			    <f:facet name="header">Nouvelle Affectation</f:facet>
+  			        <f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('newChambre')}.hide();" />
+  				    </f:facet>
+  			    
+  			</rich:modalPanel>
+  			
+  			<rich:modalPanel id="newChambre" width="600" height="400">
+  				<f:facet name="header">Nouvelle chambre</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('newChambre')}.hide();" />
+  				    </f:facet>
+  				<a4j:include viewId="/administrateur/formNewChambre.xhtml"/>
+  			</rich:modalPanel>
+  		    
+  		    <rich:modalPanel id="modifierChambre" width="500" height="300">
+  		       <f:facet name="header">Modifier chambre</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifierChambre')}.hide();" />
+  				    </f:facet>
+  		       <a4j:include viewId="/administrateur/modifierChambre.xhtml"/>
+  		    </rich:modalPanel>								
+  			<rich:modalPanel id="newFact" width="300" heigth="280">
+  				<f:facet name="header">Facture</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('newFact')}.hide();" />
+  						</f:facet>
+  			   <a4j:include viewId="/administrateur/newFacture.xhtml" />
+  		    </rich:modalPanel>
+  		    
+  		    <rich:modalPanel id="chronologie" width="800" height="500">
+  		      <f:facet name="header">Chronologie du patient</f:facet>
+  		           <f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('chronologie')}.hide();" />
+  				    </f:facet>
+  				    		    </rich:modalPanel>
+  				    		    
+  				  <rich:modalPanel id="factureApercu" width="500" heigth="500">
+  				  		<f:facet name="header">Facture</f:facet>
+  				  			<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('factureApercu')}.hide();" />
+  				    </f:facet>
+  				    	<a4j:include viewId="/administrateur/factureApercu.xhtml" />
+  				  </rich:modalPanel>
+  				  
+  				   <rich:modalPanel id="sommePayer">
+  		
+  			      <f:facet name="header">Somme Total</f:facet>
+  		                <f:facet name="controls">
+  			           <h:graphicImage value="/images/close.png" onclick="#{rich:component('sommePayer')}.hide();" />
+  		          </f:facet>
+  		          	
+			         <a4j:include viewId="/receptionniste/formSommePayer.xhtml" />
+  	  		
+  		         </rich:modalPanel>
+  		         
+  </body>
+</html>

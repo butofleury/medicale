@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+
+   <body>
+   
+  
+    <div id="menuPrincipale">
+      
+      
+      <div>
+      
+      <a4j:commandLink action="#{laborantin.verificationClicked}" id="verificationMenu" reRender="main-panel" style="text-decoration:none">
+			        <h:panelGrid columns="1" style="cursor:pointer">
+			             <h:outputText value="Verification" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+			            <h:graphicImage value="/images/gestionSoinD.png" />
+			        </h:panelGrid>
+			      </a4j:commandLink>
+      
+      <rich:separator />
+      
+      <a4j:commandLink action="#{laborantin.resultatClicked}" reRender="main-panel" style="text-decoration:none">
+      			<h:panelGrid columns="1" style="cursor:pointer">
+      		<h:outputText value="Resultat" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+      				 <h:graphicImage value="/images/gestionSoinD.png" />
+      			</h:panelGrid>
+      </a4j:commandLink>
+       <rich:separator />
+     
+        
+			         <rich:toolTip mode="client" followMouse="true"  for="verificationMenu">
+					      <h:panelGrid style="width:170px">
+					          Vérification du suivi des patients
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        
+      
+      </div>
+     
+	 
+	 
+     
+   
+    </div>
+   
+    
+      </body>
+</html>

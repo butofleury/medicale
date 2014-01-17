@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+  
+  <h:form>
+    <rich:panel>
+       <rich:tabPanel switchType="ajax" headerAlignment="right">
+          <rich:tab label="Patient">
+             <h:panelGrid style="margin:auto">
+                <rich:dataTable value="#{consultation.listDetailsPatient}" var="patient">
+                  <f:facet name="header">Informations supplementaires sur le patient</f:facet>
+                  <rich:column>
+                  <f:facet name="header">Le patient</f:facet>
+		              <h:panelGrid columns="3">
+		                  
+		                  <h:panelGrid columns="2">
+		                    <h:outputText value="Code du patient:" /> <h:inputText value="#{patient.codePerso}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Nom:" /> <h:inputText value="#{patient.nom}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Prenom:" /> <h:inputText value="#{patient.prenom}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Profession:" /> <h:inputText value="#{patient.profession}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Email:" /> <h:inputText value="#{patient.email}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Telephone fixe:" /> <h:inputText value="#{patient.telFixe}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Telephone mobile:" /> <h:inputText value="#{patient.telMob}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  
+		                   <h:panelGrid columns="2">
+		                    <h:outputText value="Date de naissance:" /> <h:inputText value="#{patient.dateNaissance}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  
+		                  <h:panelGrid columns="2">
+		                  <h:outputText value="Adresse:" /> <h:inputText value="#{patient.adresse}" disabled="true" style="color:blue"/>
+		                  </h:panelGrid>
+		                  
+		                 
+		 
+		              </h:panelGrid>
+                     
+                     
+                  </rich:column>
+                </rich:dataTable>
+             </h:panelGrid>
+          </rich:tab>
+          
+          <rich:tab label="Rendez-vous">
+            
+            
+             <h:panelGrid style="margin:auto">
+                 
+                  <rich:dataTable value="#{consultation.listDetailsRendez}" var="infor">
+                   <f:facet name="header">Informations supplementaires sur le rendez-vous</f:facet>
+                    <rich:column>
+                       <f:facet name="header">Code du patient</f:facet>
+                       #{infor.codePerso}
+                    </rich:column>
+                    
+                    <rich:column>
+                      <f:facet name="header">Nom</f:facet>
+                      #{infor.nom}
+                    </rich:column>
+                    
+                    <rich:column>
+                     <f:facet name="header">Prenom</f:facet>
+                     #{infor.prenom}
+                    </rich:column>
+                    
+                    <rich:column>
+                     <f:facet name="header">Date du rendez-vous</f:facet>
+                     #{infor.dateRendezVous}
+                    </rich:column>
+                    <rich:column>
+                     <f:facet name="header">Date d'attribution</f:facet>
+                     #{infor.dateAttribution}
+                    </rich:column>
+                    <rich:column>
+                     <f:facet name="header">Service</f:facet>
+                     #{infor.nomService}
+                    </rich:column>
+                    <rich:column>
+                     <f:facet name="header">Status</f:facet>
+                     <h:panelGrid columns="2">
+                     
+                         <h:panelGrid style="border-right:2px solid #a2a5a9;">
+                           <h:panelGrid rendered="#{infor.validate}">
+                                 <h:graphicImage value="/images/ok.png" />
+                           </h:panelGrid>
+                           
+                           <h:panelGrid rendered="#{!infor.validate}">
+                                 <h:graphicImage value="/images/closeBack.png" />
+                           </h:panelGrid>
+                         </h:panelGrid>
+                       
+                      <h:panelGrid>
+                        #{infor.statusValue}
+                     </h:panelGrid>
+                     </h:panelGrid>
+                    </rich:column>
+                      
+                    
+                  </rich:dataTable>
+             </h:panelGrid>
+          </rich:tab>
+          
+       </rich:tabPanel>
+       
+    </rich:panel>
+    
+    
+  </h:form>
+    
+</html>

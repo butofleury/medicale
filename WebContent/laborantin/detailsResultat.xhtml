@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+ <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+			<h:panelGrid columns="2" id="infoAnnulation">
+				<h:graphicImage value="/images/infoReturn.png" rendered="#{verification.error}"/>
+           		<h:outputText value="#{laborantin.messageAnnulation}" style="font-family:gautami;color:red;font-size:14px"/>
+			</h:panelGrid>
+	 <h:panelGrid columns="3">
+	 		
+            <h:outputText value="Patient:" style="font-family:gautami;font-size:15px"/>
+            <h:inputText value="#{laborantin.searchValue}" id="searchLink1" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px;cursor:pointer">
+              <a4j:support event="onkeyup" action="#{laborantin.backPatientExamen}"  reRender="infoExamen,vue1, nomPat"/>
+            </h:inputText>
+            
+             <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="vue1">
+               <h:outputText value="#{laborantin.searchValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+             </h:panelGrid>
+            
+          <a4j:jsFunction name="annuleResultat" action="#{laborantin.annulerResultat}" reRender="infoExamen, infoAnnulation">
+          
+          </a4j:jsFunction>
+           		 <rich:panel id="nomPat">
+            <rich:dataTable value="#{laborantin.listResultat}" id="infoExamen" var="lab">
+  				<f:facet name="header">Resultats des examens</f:facet>
+  					<rich:column>
+  						<f:facet name="header">Examen</f:facet>
+  							#{lab.nomPresta}
+  					</rich:column>
+  					
+  					<rich:column>
+  						<f:facet name="header">Resultat</f:facet>
+  							#{lab.resultat}
+  					</rich:column>
+  					<rich:column>
+  						<f:facet name="header">Date d'execution</f:facet>
+  							#{lab.dateResultat}
+  					</rich:column>
+  					
+  					<rich:column>
+  						<f:facet name="header">Action</f:facet>
+  		<a4j:commandLink oncomplete="if(confirm('Voulez-vous annuler ce resultat?')){annuleResultat()}" value="Annuler" >
+  			<f:setPropertyActionListener value="#{lab}" target="#{laborantin.selected}" />
+  		</a4j:commandLink>
+  					</rich:column>
+  					
+  		</rich:dataTable>
+  				</rich:panel>
+           </h:panelGrid> 
+  		
+  		
+</html>

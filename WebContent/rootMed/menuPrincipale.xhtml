@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+ 
+   <body>
+			   <div id="menuPrincipale">
+			   
+			        
+         
+         
+			      <a4j:commandLink action="#{consultation.consultationClicked}" id="consultationMenu" reRender="main-panel" style="text-decoration:none">
+					        <h:panelGrid columns="1" style="cursor:pointer">
+					              <h:outputText value="Consultation" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+					             <h:graphicImage value="/images/gestionConsultationD.png" />
+					        </h:panelGrid>
+			      </a4j:commandLink>
+			        
+			         
+			      <rich:separator />
+			      <a4j:commandLink action="#{consultation.verificationClicked}" id="verificationMenu" reRender="main-panel" style="text-decoration:none">
+			        <h:panelGrid columns="1" style="cursor:pointer">
+			             <h:outputText value="Suivi" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+			            <h:graphicImage value="/images/gestionSoinD.png" />
+			        </h:panelGrid>
+			      </a4j:commandLink>
+			      <rich:separator />
+			      
+			      <a4j:commandLink action="#{consultation.liberationCLicked}" id="liberationMenu" reRender="main-panel" style="text-decoration:none">
+			        <h:panelGrid columns="1" style="cursor:pointer">
+			             <h:outputText value="Sortie" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+			            <h:graphicImage value="/images/sortie.png" />
+			        </h:panelGrid>
+			      </a4j:commandLink>
+			      
+			      <rich:separator />
+			      
+			       <rich:toolTip mode="client" followMouse="true"  for="consultationMenu">
+					      <h:panelGrid style="width:140px">
+					          Gestion des consultations
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="verificationMenu">
+					      <h:panelGrid style="width:170px">
+					          Vérification du suivi des patients
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			         <rich:toolTip mode="client" followMouse="true"  for="liberationMenu">
+					      <h:panelGrid style="width:120px">
+					          Sortie des patients
+					      </h:panelGrid>
+			        </rich:toolTip>
+			    </div>
+	</body>
+   
+</html>

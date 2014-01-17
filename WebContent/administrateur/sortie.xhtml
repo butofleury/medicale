@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+  		
+  			<a4j:keepAlive beanName="facture" />
+  		  
+  		<rich:dataTable value="#{facture.listHospSortie}" var="sortie">
+  			<rich:column>
+  				<f:facet name="header">Code</f:facet>
+  					#{sortie.codePerso}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Nom</f:facet>
+  					#{sortie.nom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Prénom</f:facet>
+  					#{sortie.prenom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Sexe</f:facet>
+  					#{sortie.sexe}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date d'arrivée</f:facet>
+  					#{sortie.dateHosp}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date de sortie</f:facet>
+  					#{sortie.dateSortie}
+  			</rich:column>
+  			
+  			<rich:column>
+ 				
+ 				<a4j:commandLink oncomplete="#{rich:component('sommePayer')}.show();" action="#{facture.sommeAPayer}" value="Somme à payer" >
+ 					 <f:setPropertyActionListener value="#{sortie}" target="#{facture}" reRender="sommeL" />
+ 				</a4j:commandLink>
+ 				<br/>
+  		<a4j:commandLink action="#{facture.printFacture}" value="Facture" >
+  <f:setPropertyActionListener value="#{sortie}" target="#{facture}" />
+  		</a4j:commandLink>
+  			</rich:column>
+  		</rich:dataTable>
+  
+  		<rich:modalPanel id="sommePayer">
+
+  		<a4j:keepAlive beanName="facture" />
+  			<f:facet name="header">Somme Total</f:facet>
+  		<f:facet name="controls">
+  			<h:graphicImage value="/images/close.png" onclick="#{rich:component('sommePayer')}.hide();" />
+  		</f:facet>	
+				
+  	  		<ui:include src="/receptionniste/formSommePayer.xhtml" />
+ 
+  		</rich:modalPanel>
+  
+</html>

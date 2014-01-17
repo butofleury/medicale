@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+
+  <body>
+   
+  
+    <div id="menuPrincipale">
+      
+      <div>
+	  
+     
+      <a4j:commandLink action="#{administrateur.userClicked}"  id="user" reRender="main-panel" style="text-decoration:none">
+      
+      <h:panelGrid columns="1" style="cursor:pointer" >
+      <h:outputText value="Utilisateur" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+      <h:graphicImage value="/images/icon_users.png" />
+      </h:panelGrid>
+      
+      </a4j:commandLink>
+      <rich:separator />
+      <a4j:commandLink action="#{administrateur.prestationClicked}" id="prestation" reRender="main-panel" style="text-decoration:none">
+      <h:panelGrid columns="1" style="cursor:pointer" >
+      <h:outputText value="Prestation" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+      <h:graphicImage value="/images/prestationNew.png" />
+      
+      </h:panelGrid>
+      </a4j:commandLink>
+        <rich:separator />
+        
+      <a4j:commandLink action="#{administrateur.patientClicked}" id="patient" reRender="main-panel" style="text-decoration:none">
+      
+      <h:panelGrid columns="1" style="cursor:pointer" >
+      <h:outputText value="Patient" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+     <h:graphicImage value="/images/gestionPatient70.png" />
+      
+      </h:panelGrid>
+      
+      </a4j:commandLink> 
+      
+        <rich:separator />
+        
+         <a4j:commandLink action="#{administrateur.serviceClicked}" id="serviceMenu" reRender="main-panel" style="text-decoration:none">
+      
+      <h:panelGrid columns="1" style="cursor:pointer" >
+      <h:outputText value="Service" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+      <h:graphicImage value="/images/serviceNew.png" />
+      
+      </h:panelGrid>
+      
+      </a4j:commandLink> 
+      
+        <rich:separator />
+        
+       <a4j:commandLink action="#{administrateur.factureClicked}" id="facture" reRender="main-panel" style="text-decoration:none">
+       		  
+       		  <h:panelGrid columns="1" style="cursor:pointer" >
+                
+                <h:outputText value="Facturation" style="margin-left:10px;font-family:gautami;font-size:15px;color:#0951f6"/>
+                <h:graphicImage value="/images/gestionFacture70.png" />
+      
+              </h:panelGrid>
+       </a4j:commandLink>
+       
+       <rich:separator />
+        
+			        <rich:toolTip mode="client" followMouse="true"  for="user">
+					      <h:panelGrid style="width:110px">
+					          Gestion des utilisateurs
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="prestation">
+					      <h:panelGrid style="width:130px">
+					          Gestion des prestations
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="patient">
+					      <h:panelGrid style="width:140px">
+					          Gestion des patients
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="serviceMenu">
+					      <h:panelGrid style="width:140px">
+					          Gestion des services
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        
+     
+      </div>
+     
+	 
+	 
+     
+   
+    </div>
+   
+    
+   </body>
+</html>

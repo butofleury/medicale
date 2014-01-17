@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="receptionniste::#affiche#newReceptionniste.xhtml" NAME="output"
+    PATH="/affiche/newReceptionniste.xhtml"
+    TARGET="rules:#affiche#newReceptionniste.xhtml"
+    TITLE="receptionniste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="infirmier::#affiche#newInfirmier.xhtml"
+    NAME="output1" PATH="/affiche/newInfirmier.xhtml"
+    TARGET="rules:#affiche#newInfirmier.xhtml" TITLE="infirmier" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="laborantin::#affiche#newLaborantin.xhtml"
+    NAME="output2" PATH="/affiche/newLaborantin.xhtml"
+    TARGET="rules:#affiche#newLaborantin.xhtml" TITLE="laborantin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="administrateur::#affiche#newAdministrateur.xhtml" NAME="output3"
+    PATH="/affiche/newAdministrateur.xhtml"
+    TARGET="rules:#affiche#newAdministrateur.xhtml"
+    TITLE="administrateur" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="medecin::#affiche#newMedecin.xhtml"
+    NAME="output4" PATH="/affiche/newMedecin.xhtml"
+    TARGET="rules:#affiche#newMedecin.xhtml" TITLE="medecin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#affiche#newReceptionniste.xhtml"
+  PATH="/affiche/newReceptionniste.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#affiche#newInfirmier.xhtml"
+  PATH="/affiche/newInfirmier.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#affiche#newLaborantin.xhtml"
+  PATH="/affiche/newLaborantin.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#affiche#newAdministrateur.xhtml"
+  PATH="/affiche/newAdministrateur.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#affiche#newMedecin.xhtml"
+  PATH="/affiche/newMedecin.xhtml" SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="deconnexion::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="deconnexion" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

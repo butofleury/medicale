@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+   <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+	<h:form>
+	<a4j:keepAlive beanName="administrateur" />
+		<rich:panel>
+			<h:panelGrid columns="" style="margin:auto">
+				<h:panelGrid columns="2" id="information" >
+            <h:graphicImage value="/images/infoReturn.png" rendered="#{administrateur.error}"/>
+             
+             <h:outputText id="message" value="#{administrateur.message}" style="font-family:gautami;color:red;font-size:14px"/>
+         </h:panelGrid> 
+         
+						
+				      <h:panelGrid columns="" id="nouvelleChambre">
+				         <h:panelGrid columns="">
+				           <h:outputText value="Nouvelle chambre:" /><h:inputText id="codeChambre" value="#{administrateur.codeChambre}" />
+					     </h:panelGrid>
+					       
+					       <h:panelGrid style="margin:auto">
+					           <a4j:commandButton action="#{administrateur.newChambre}" value="Enregistrer" reRender="information,tabChambre" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+					       </h:panelGrid>
+					       <h:panelGrid columns="">
+					           <rich:dataTable value="#{administrateur.listChambreSansPrix}" var="chambre" rows="3">
+					            <f:facet name="header">Liste des chambres sans prix</f:facet>
+					             <rich:column>
+					               <f:facet name="header">Code de la chambre</f:facet>
+					               #{chambre.codeChambre}
+					             </rich:column>
+					             
+					             <rich:column>
+					              <f:facet name="header">Prix</f:facet>
+					               #{chambre.prix}
+					             </rich:column>
+					             
+					              <rich:column>
+					               <f:facet name="header">Status prix</f:facet>
+					                #{chambre.chambreStatus}
+					              </rich:column>
+					              
+					              <rich:column>
+					               <f:facet name="header">Actions</f:facet>
+					               <a4j:commandLink oncomplete="oncomplete=#{rich:component('addPrice')}.show();"  value="Editer">
+					                   <f:setPropertyActionListener value="#{chambre}" target="#{administrateur.selected}" />
+					               
+					               </a4j:commandLink>
+					              </rich:column>
+					              
+					              <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			              </f:facet>
+					           </rich:dataTable>
+					       
+					       </h:panelGrid>
+			          </h:panelGrid>
+				      
+				      <h:panelGrid columns="3">
+				
+						  <h:outputText value="Prix" /> 
+						  <h:selectOneMenu id="allPrix" value="#{administrateur.prix}">
+									<f:selectItems value="#{administrateur.listAllPrix}"/>
+						  </h:selectOneMenu>
+						  <a4j:commandLink oncomplete="#{rich:component('addNewPrix')}.show();" value="Nouveau Prix" >
+								<a4j:support event="onclick" action="#{administrateur.initialiseChamb}" reRender="allPrix"/>
+						  </a4j:commandLink>
+						  
+					  </h:panelGrid>		
+							
+															
+					<a4j:commandButton action="#{administrateur.ajoutChambre}" value="Enregistrer" reRender="message, tabChambre" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			</h:panelGrid>
+		</rich:panel>
+		
+     
+	</h:form>
+	
+	
+	<rich:modalPanel id="addNewChambre" width="600" height="400">
+  				<f:facet name="header">Nouvelle chambre</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('addNewChambre')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/newChambre.xhtml"/>
+  			</rich:modalPanel>
+  			
+  	<rich:modalPanel id="addNewPrix" width="300" height="200">
+  				<f:facet name="header">Nouveau prix</f:facet>
+  					<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('addNewPrix')}.hide();" />
+  						</f:facet>
+  				<a4j:include viewId="/administrateur/newPrix.xhtml"/>
+   </rich:modalPanel>
+   
+    <rich:modalPanel id="addPrice" width="400" height="200">
+                   <f:facet name="header">Inserer prix</f:facet>
+                       <f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('addPrice')}.hide();" style="cursor:pointer"/>
+  						</f:facet>
+  						
+  				   <a4j:include viewId="/administrateur/insererChambrePrix.xhtml"/>
+      
+      </rich:modalPanel>
+  
+</html>

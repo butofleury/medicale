@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+   <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+   <link rel="stylesheet" href="../design/styleR.css" />
+   
+   
+   <title><h:outputText value="#{login.userName}"/>-<h:outputText value="#{login.nomCat}" />| Patient Software</title>
+  
+  </head>
+
+  <body>
+        <h:form>
+      
+     
+     
+      
+         <ui:include src="/rootR/entete.xhtml" />         
+                 
+                 
+     <div id="corps"> 
+           <ui:include src="/rootR/menuPrincipale.xhtml" />
+        
+           <div id="centre">
+                           
+                     
+                      
+   
+			           <div id="lien">
+			              <h:graphicImage value="/images/lienPro.png" />
+			           </div>
+			           
+			           
+         
+           
+      
+   		<a4j:outputPanel id="main-panel">
+       <h:panelGrid id="patient" rendered="#{receptionniste.patient}">
+       
+         <div id="menuPatient">
+              <h:panelGrid columns="2">
+                  <a4j:commandLink oncomplete="#{rich:component('nouveauPatient')}.show()" id="nouveauPatient" reRender="affichePatient">
+			          <h:graphicImage value="/images/nouveauPatient.png"  style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+			          <a4j:support event="onclick" action="#{receptionniste.initialiseValue}"/>
+			      </a4j:commandLink>   
+			      <h:outputText value="Patient" style="font-size:20px;font-family:gautami;color:blue"/>
+              </h:panelGrid>
+         
+         </div>
+         
+       
+       
+        
+       	    <h:panelGrid id="affichePatient"  style="margin-left:9%">	
+       	    
+       	        
+       		
+            </h:panelGrid> 
+        
+             
+               
+           
+              
+              
+              
+      
+       	
+       </h:panelGrid>
+       
+       
+       <h:panelGrid id="rendez-vous" rendered="#{receptionniste.rendezVs}" >
+       	       <div id="menuRendez">
+              <h:panelGrid columns="3">
+                  <a4j:commandLink    style="text-decoration:none"  >
+			          <h:graphicImage value="/images/nouveauRendez.png"  style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+			           <a4j:support event="onclick" action="#{rendez.initialiseValue}"/>
+			      </a4j:commandLink>   
+			      <a4j:commandLink onclick="#{rich:component('historiqueRendez')}.show()" >
+			          <h:graphicImage value="/images/historiqueRendez.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+			      </a4j:commandLink>
+			      <h:outputText value="Rendez-vous" style="font-size:20px;font-family:gautami;color:blue"/>
+              </h:panelGrid>
+         
+         </div>
+         
+         
+       	               <a4j:outputPanel id="main-rendez">
+       	               
+       	               
+				        	 <h:panelGrid id="afficheRendez" style="margin-left:15%">
+				        	             
+				        	   
+				        	 
+				        	 </h:panelGrid>
+				        	 
+				      </a4j:outputPanel>
+       </h:panelGrid>
+       
+       
+       
+       <h:panelGrid id="facture" rendered="#{receptionniste.facture}">
+       
+                
+       		      
+       </h:panelGrid>
+       
+        <h:panelGrid id="recherchePatient" rendered="#{receptionniste.recherche}" style="margin-left:5%">
+                  
+                     
+                   
+        </h:panelGrid> 
+       </a4j:outputPanel>
+       
+      
+           </div>
+  
+    </div>
+       <ui:include src="/rootR/pied.xhtml" />
+       
+       
+                    <rich:toolTip mode="client" followMouse="true"  for="afficheLink">
+					      <h:panelGrid style="width:110px">
+					          Afficher les patients
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="nouveauPatient">
+					      <h:panelGrid style="width:110px">
+					         Nouveau patient
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="nouveauRendez">
+					      <h:panelGrid style="width:110px">
+					         Nouveau rendez
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="boutonModifier">
+					      <h:panelGrid style="width:100px">
+					         Modifier
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        
+			        
+  </h:form>
+  
+  
+                    <rich:modalPanel id="nouveauPatient" width="830" height="420" >
+			       		<f:facet name="header">Nouveau patient</f:facet>
+							       		<f:facet name="controls">
+							       			<h:graphicImage value="/images/close.png" onclick="#{rich:component('nouveauPatient')}.hide();" style="cursor:pointer"/>
+							       		</f:facet>
+			       	   <a4j:include viewId="/receptionniste/suivantPatient.xhtml"/>
+                  </rich:modalPanel>
+  
+			       
+			       <rich:modalPanel id="modifierPatient" width="800" height="400">
+			           <f:facet name="header">Modifier</f:facet>
+			             <f:facet name="controls">
+			       			<h:graphicImage value="/images/close.png"  onclick="#{rich:component('modifierPatient')}.hide();" style="cursor:pointer"/>
+			       		 </f:facet>
+			           <a4j:include viewId="/receptionniste/modifierPatient.xhtml"/>
+			       </rich:modalPanel>  
+			       
+			     
+                  
+                  <rich:modalPanel id="nouveauRendez" width="600" height="450">
+                           <f:facet name="header">Nouveau rendez-vous</f:facet>
+                               <f:facet name="controls">
+						              <h:graphicImage value="/images/close.png" onclick="#{rich:component('nouveauRendez')}.hide()" style="cursor:pointer"/>
+						       </f:facet>
+						       <ui:include src="/receptionniste/suivantRendez.xhtml"/>
+                  </rich:modalPanel>
+                  
+                   <rich:modalPanel id="modifierRendez" width="500" height="300">
+						 <f:facet name="header">Modifier le rendez-vous</f:facet>
+						       <f:facet name="controls">
+						              <h:graphicImage value="/images/close.png" onclick="#{rich:component('modifierRendez')}.hide()" style="cursor:pointer"/>
+						       </f:facet>
+					     <a4j:include viewId="/receptionniste/modifierRendezVs.xhtml"/>
+                   </rich:modalPanel>
+       
+                 <rich:modalPanel id="annulerRendez" width="600" height="200">
+                        <f:facet name="header">Annuler le rendez-vous</f:facet>
+						       <f:facet name="controls">
+						              <h:graphicImage value="/images/close.png" onclick="#{rich:component('annulerRendez')}.hide()" style="cursor:pointer"/>
+						       </f:facet>
+                       <a4j:include viewId="/receptionniste/supprimerRendez.xhtml"/>
+                 </rich:modalPanel  >
+                     
+                 <rich:modalPanel id="historiqueRendez" width="800" height="420">
+                         <f:facet name="header">Historique des rendez-vous</f:facet>
+                               <f:facet name="controls">
+						              <h:graphicImage value="/images/close.png" onclick="#{rich:component('historiqueRendez')}.hide()" style="cursor:pointer"/>
+						       </f:facet>
+						<ui:include src="/receptionniste/historiqueRendez.xhtml"/>
+                 
+                 </rich:modalPanel>
+  </body>
+</html>

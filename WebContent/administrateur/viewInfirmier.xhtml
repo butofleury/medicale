@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+    
+    
+       <!--<h:panelGrid rendered="#{administrateur.infirmier}">  -->
+       
+       <h:panelGrid columns="">
+       
+                      <h:panelGrid columns="2">
+       
+					     <a4j:commandLink oncomplete="#{rich:component('newInfirmier')}.show()" style="text-decoration:none;color:blue" reRender="tableMed">
+					     		
+					     		<h:graphicImage value="/images/nouveauPatient.png"  style="margin-left:10px;margin-top:9px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+					     </a4j:commandLink>
+					     
+					      <h:panelGrid columns="" style="color:blue;font-size:15px">
+      				         <h:outputText value="Infirmier" />
+                          </h:panelGrid>
+                          
+					  </h:panelGrid>
+     
+     <a4j:jsFunction name="changeOptionInf" action="#{administrateur.changeStatusInf}" data="#{administrateur.message}" oncomplete="alert(data)">
+     </a4j:jsFunction>
+	      					<rich:dataTable value="#{administrateur.listInfirmier}" var="inf" id="tableInf" rows="6">
+	      							<f:facet name="header">Liste des Infirmiers</f:facet>
+	      						<rich:column>
+	      							<f:facet name="header">Matricule</f:facet>
+	      					#{inf.code}
+	      						</rich:column>
+	      						
+	      					<rich:column>
+	      							<f:facet name="header">Nom</f:facet>
+	      					#{inf.nom}
+	      						</rich:column>
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Prénom</f:facet>
+	      					#{inf.prenom}
+	      						</rich:column>
+	      						<rich:column>
+	      							<f:facet name="header">Sexe</f:facet>
+	      					#{inf.genre}
+	      						</rich:column>
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Date de naissance</f:facet>
+	      					#{inf.dateNaissance}
+	      						</rich:column>
+	      						
+	      						<!--<rich:column>
+	      							<f:facet name="header">Tel Fixe</f:facet>
+	      					#{inf.telFixe}
+	      						</rich:column>
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Tel Mobile</f:facet>
+	      					#{inf.telMob}
+	      						</rich:column>-->
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Adresse</f:facet>
+	      					#{inf.adresse}
+	      						</rich:column>
+	      						
+	      						<!--<rich:column>
+	      							<f:facet name="header">Email</f:facet>
+	      					#{inf.email}
+	      						</rich:column>-->
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Identifiant</f:facet>
+	      					#{inf.userName}
+	      						</rich:column>
+	      						
+	      						<rich:column>
+	      							<f:facet name="header">Service</f:facet>
+	      					#{inf.nomService}
+	      						</rich:column>
+	      						
+	      						<rich:column>
+					    <f:facet name="header">Action</f:facet>
+					          
+					           <h:panelGrid columns="3">
+					           
+					                 <h:panelGrid columns="2">
+					                  <h:graphicImage value="/images/updateBtn.png" />
+					      				<a4j:commandLink oncomplete="#{rich:component('modifInfirmier')}.show();" value="Modifier" style="text-decoration:none;color:blue">
+					      		            <f:setPropertyActionListener value="#{inf}" target="#{administrateur.selected}" />		
+					      				</a4j:commandLink> 
+					      			 </h:panelGrid>	
+					      				
+					      				
+					      				<a4j:commandLink value="#{inf.stat}" oncomplete="if(confirm('Voulez-vous vraiment #{inf.stat} cet infirmier?')){changeOptionInf()}" reRender="tableInf" style="text-decoration:none;color:blue">
+					      						<f:setPropertyActionListener value="#{inf}" target="#{administrateur.selected}" />
+					      				</a4j:commandLink>
+					      		
+					      		</h:panelGrid>
+					      	                                                                                                                                                                                                                                                                                                                                                                                           
+					      		
+	      						</rich:column>
+	      				
+	      				<f:facet name="footer">
+							<rich:datascroller selectedStyle="font-weight:bold">
+								<f:facet name="first">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="first_disabled">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="last">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+								<f:facet name="last_disabled">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+							<f:facet name="next">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="next_disabled">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="previous">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<f:facet name="previous_disabled">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<!--<f:facet name="fastforward">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastforward_disabled">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastrewind">
+								<h:outputText value="FR"/>
+								</f:facet>
+								<f:facet name="fastrewind_disabled">
+								<h:outputText value="FR"/>
+								</f:facet>-->
+							</rich:datascroller>
+						</f:facet>
+						
+	      					</rich:dataTable>
+      					<!--</h:panelGrid>  -->
+                   
+                   </h:panelGrid>
+   
+</html>

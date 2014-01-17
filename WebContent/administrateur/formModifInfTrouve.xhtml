@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+  <h:form>
+  	 <a4j:keepAlive beanName="administrateur" />
+       <rich:panel style="width:500px">
+       		<a4j:region>
+            <rich:panel id="nouveau">
+           <h:panelGrid columns="3">
+           		
+           		  <h:inputHidden value="#{recherche.selected.idPersonne}" />
+           		<h:inputHidden value="#{recherche.selected.idInf}" />
+           		<h:inputHidden value="#{recherche.selected.idService}" />
+           		<h:inputHidden value="#{recherche.selected.idServiceInf}" />
+            	<h:outputText value="*Nom:" style="font-size:1.1em"/>
+            <h:inputText id="nomP" value="#{recherche.selected.nom}"  required="true" validatorMessage="Le nom est très court!" requiredMessage="Veuillez completer champ nom!">
+            <a4j:support event="onblur"/>
+            <f:validateLength minimum="3"/>
+            </h:inputText>
+            <rich:message for="nomP" style="color:red;"></rich:message>
+            <h:outputText value="*Prenom:" style="font-size:1.1em"/>
+            <h:inputText id="prenom" value="#{recherche.selected.prenom}" required="true" validatorMessage="Le prenom est très court!" requiredMessage="Veuillez completer champ prenom!">
+            <a4j:support event="onblur"/>
+            <f:validateLength minimum="3"/>
+            </h:inputText>
+             <rich:message for="prenom" style="color:red;"></rich:message>
+            <h:outputText value="*Date de naissance:" style="font-size:1.1em"/>
+            <rich:calendar value="#{recherche.selected.dateNaiss}"  id="date" datePattern="yyyy-MM-dd" required="true" requiredMessage="Veuillez completer champ date de naissance!"/>
+             <rich:message for="date" style="color:red;"></rich:message>
+            <h:outputText value="*Genre:" style="font-size:1.1em"/>
+            <h:selectOneRadio value="#{recherche.selected.sexe}" id="genre" required="true" requiredMessage="Veuillez choisir le genre!">
+            <f:selectItem itemLabel="Femme" itemValue="Feminin"/>
+            <f:selectItem itemLabel="Homme" itemValue="Masculin"/>
+            <a4j:support event="onclick" reRender="col"/>
+            </h:selectOneRadio>
+             <rich:message for="genre" style="color:red;"></rich:message>
+          					
+          	<h:outputText value="Service:" /><h:selectOneMenu value="#{recherche.selected.idService}">
+          									<f:selectItem itemValue="#{recherche.selected.idService}" itemLabel="#{recherche.selected.nomService}"/>
+          											<f:selectItems value="#{recherche.listServiceItem}"/>
+          									 </h:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+            
+            <h:outputText value="Telephone fixe:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.telFixe}" />
+            <h:outputText value="Telephone mobile:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.telMob}" />
+            <h:outputText value="Adresse:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.adresse}" />
+            <h:outputText value="Email:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.email}" />
+            </h:panelGrid>
+            
+            <h:panelGrid columns="3">
+           <h:outputText value="Nom d'utilisateur:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.userName}" />
+           <rich:message for="date" style="color:red;"></rich:message>
+          
+           <h:outputText value="Mot de passe:" style="font-size:1.1em"/><h:inputSecret  id="passWord" value="#{recherche.passWord}" /><rich:message for="passWord" style="color:red;"></rich:message>
+           <h:outputText value="Confirmer le mot de passe:" style="font-size:1.1em"/><h:inputSecret  id="confimerPassWord" value="#{recherche.confPassWord}" /><rich:message for="confimerPassWord" style="color:red;"></rich:message>
+            <h:outputText value="*Matricule:" style="font-size:1.1em"/><h:inputText value="#{recherche.selected.codeInf}" id="codePerso" required="true" requiredMessage="Veuillez completer le numero de matricule!" readonly="true"/>
+            <rich:message for="codePerso" style="color:red;"></rich:message>
+            </h:panelGrid>
+            
+            <h:panelGrid style="margin:auto">
+      <a4j:commandButton action="#{recherche.modifInfTrouve}" value="Modifier" reRender="tabInfTrouve" onclick="#{rich:component('modifInfTrouve')}.hide();"/>
+            </h:panelGrid>
+            </rich:panel>
+           </a4j:region>
+       </rich:panel>
+       
+      </h:form>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+        
+           
+           <a4j:keepAlive beanName="facture" />
+           
+            <h:panelGrid columns="2" id="information">
+                  <h:graphicImage value="/images/infoReturn.png" rendered="#{facture.error}"/>
+			      <h:outputText value="#{facture.message}" style="font-family:gautami;color:red;font-size:14px"/>
+		    </h:panelGrid>
+			   
+			<h:panelGrid columns="3">   
+			   
+			     <rich:panel>
+			        <f:facet name="header">Informations sur le patient</f:facet>
+			         
+			          <h:panelGrid columns="">
+			          
+					       <h:panelGrid columns="2">
+					          <h:outputText value="Patient:" /> <h:inputText value="#{facture.codePerso}" id="rendez"/>
+					       </h:panelGrid>
+					         <a4j:region renderRegionOnly="true">
+					         
+					          <rich:suggestionbox height="300" width="400" fetchValue="#{rendez.codePerso}"  suggestionAction="#{facture.suggestionRendez}" var="rendez" nothingLabel="Pas de suggestions" for="rendez">
+					             <rich:column>
+					              #{rendez.codePerso}
+					              </rich:column>
+					              
+					              <rich:column>
+					              #{rendez.nom}
+					              </rich:column>
+					              
+					              <rich:column>
+					              #{rendez.prenom}
+					              </rich:column>
+					             <a4j:support event="onselect" action="#{facture.patientSelected}" reRender="formulaire">
+					              
+					              <f:setPropertyActionListener value="#{rendez}" target="#{facture.selected}" />
+					              </a4j:support>
+					          </rich:suggestionbox>
+					          
+					          <h:panelGrid columns="2" id="formulaire">
+					          <h:outputText value="Nom:" /> <h:inputText value="#{facture.nom}" disabled="true" style="color:blue"/>
+					          <h:outputText value="Prenom:" /> <h:inputText value="#{facture.prenom}" disabled="true" style="color:blue" />
+					          <h:outputText value="Service:" /> <h:inputText value="#{facture.nomService}" disabled="true" style="color:blue"/>
+					          </h:panelGrid>
+					          
+					          </a4j:region>
+					          
+					    </h:panelGrid>   			          
+			          
+			          
+			           
+			           <h:panelGrid >
+			            
+			           
+			           <h:panelGrid columns="2">
+			           <h:outputText value="Prestation:" />
+			           <h:inputText value="#{facture.nomPresta}" id="nomPresta"/>
+			            </h:panelGrid>
+			            
+			          <a4j:region renderRegionOnly="true">
+			            
+			          <rich:suggestionbox height="300" width="400"  suggestionAction="#{facture.suggestionPrestation}" nothingLabel="Pas de suggestions" for="nomPresta" var="prestation">
+			              <rich:column>
+			              #{prestation.nomCatPresta}
+			              </rich:column>
+			              
+			              <rich:column>
+			              #{prestation.nomPresta}
+			              </rich:column>
+			           
+			           
+			              <a4j:support event="onselect" action="#{facture.prestationSelected}" reRender="prestation">
+			              
+			              <f:setPropertyActionListener value="#{prestation}" target="#{facture.selected}" />
+			              </a4j:support>
+			           </rich:suggestionbox>
+			             
+			             
+			             <h:panelGrid columns="2" id="prestation" >
+			             
+			             <h:outputText value="Categorie:" /><h:inputText value="#{facture.nomCatPresta}" disabled="true"  style="color:blue"/>
+			             <h:outputText value="Prestation:" /><h:inputText value="#{facture.nomPresta}" disabled="true"  style="color:blue"/>
+			             <h:outputText value="Prix de la prestation:" /> <h:inputText value="#{facture.prix}" disabled="true"  style="color:blue"/>
+			             
+			             </h:panelGrid>
+			          </a4j:region>
+			         </h:panelGrid>  
+			       
+			             <h:panelGrid style="margin:auto">
+			               <a4j:commandButton action="#{facture.factureReceive}" value="Valider" data="#{facture.message}" reRender="facturation,prestation,information" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			             </h:panelGrid>
+			     </rich:panel>
+     
+		      <rich:panel style="width:200px" id="facturation">
+		           <f:facet name="header">Prestation</f:facet>
+			             <rich:dataTable  value="#{facture.factureListener}" id="factureTab" var="factured">
+			                  <rich:column>
+			                  <f:facet name="header">Prestation</f:facet>
+			                  #{factured.nomPresta}
+			                  </rich:column>
+			                  
+			                  <rich:column>
+			                  <f:facet name="header">Prix</f:facet>
+			                  #{factured.prix}
+			                  </rich:column>
+			                  
+			                  <rich:column>
+			                    <f:facet name="header">Action</f:facet>
+			                       <h:panelGrid columns="2">
+			                            <h:graphicImage value="/images/close.png" />
+				                        <a4j:commandLink action="#{facture.removeFactureLister}" value="Annuler" reRender="factureTab, sommeTotalP" style="color:blue;text-decoration:none">
+				            	          <f:setPropertyActionListener value="#{factured}" target="#{facture.selected}" />
+				                        </a4j:commandLink>
+			                        </h:panelGrid>
+			                  </rich:column>
+			             </rich:dataTable>
+			            	<h:panelGrid id="sommeTotalP" columns="2" >
+			            		 <h:outputText value="Somme Total:" /><h:outputText value="#{facture.sommePaye}" />
+			            	</h:panelGrid>
+			             <h:panelGrid columns="2" style="border:1px solid #a2a5a9;width:150px;margin-top:10px;">
+			             
+			             <a4j:commandButton  value="Facture" onclick="#{rich:component('factureApercu')}.show();"  reRender="information" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			             <a4j:commandButton action="#{facture.initialisePrestation}" value="Annuler" reRender="facturation,information, ident" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			             
+			             </h:panelGrid>
+		      </rich:panel>
+		      
+		      <rich:panel>
+		      	<f:facet name="header">Liste des factures</f:facet>
+		      		<rich:dataTable value="#{facture.listFactAmbulant}" var="amb">
+		      			<rich:column>
+		      				<f:facet name="header">Code</f:facet>
+		      					#{amb.codePerso}
+		      			</rich:column>
+		      			
+		      			<rich:column>
+		      				<f:facet name="header">N° Facture </f:facet>
+		      					#{amb.codeFacture}
+		      			</rich:column>
+		      			
+		      			<rich:column>
+		      				<f:facet name="header">Nom</f:facet>
+		      					#{amb.nom}
+		      			</rich:column>
+		      			
+		      			<rich:column>
+		      				<f:facet name="header">Prénom</f:facet>
+		      					#{amb.prenom}
+		      			</rich:column>
+		      			
+		      			<rich:column>
+		      				<f:facet name="header">Somme Totale</f:facet>
+		      					#{amb.sommeFactureAmbulant}
+		      			</rich:column>
+		      			
+		      			<!--<rich:column>
+		      				<f:facet name="header">Somme restante</f:facet>
+		      					#{amb.montantRestant}
+		      			</rich:column>-->
+		      			
+		      			<rich:column>
+  							<f:facet name="header">Date</f:facet>
+  								#{amb.dateFact}
+  						</rich:column>
+  								
+  						<rich:column>
+  							<f:facet name="header">Facture</f:facet>
+  								<h:commandLink action="#{facture.testAmbulat}" value="Imprimer" >
+  									<f:setPropertyActionListener value="#{amb}" target="#{facture}" />
+  								</h:commandLink>
+  						</rich:column>
+		      		</rich:dataTable>
+		      </rich:panel>
+        </h:panelGrid> 
+        
+        
+      
+</html>

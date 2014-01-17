@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+      <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+   
+     
+     <rich:panel>
+  			<f:facet name="header">Execution des soins</f:facet>
+  					  				
+  				
+  			<h:panelGrid columns="3">
+  		
+  			<h:outputText value="Patient:" /><h:inputText id="code" value="#{infirmier.code}" />
+  				<rich:suggestionbox suggestionAction="#{infirmier.suggestPatientSoin}" for="code" var="patient" fetchValue="#{patient.code}"  nothingLabel="Pas de suggestions">
+  					<rich:column>
+  						#{patient.code}
+  					</rich:column>
+  					
+  					<rich:column>
+  						#{patient.nom}
+  					</rich:column>
+  					
+  					<rich:column>
+  						#{patient.prenom}
+  					</rich:column>
+				  		<a4j:support event="onselect" action="#{infirmier.patientSelected}" reRender="form1, tabPrestaPat, paneSoins">
+				  	    <f:setPropertyActionListener value="#{patient}" target="#{infirmier.selectedPatient}" />	
+				  		</a4j:support>
+  				</rich:suggestionbox>
+  			<br/><br/>
+  					<h:panelGrid columns="2" id="form1">
+  			<h:inputHidden value="#{infirmier.idPatient}" />	<br/>	
+  			<h:outputText value="Nom:" /><h:inputText value="#{infirmier.nom}" disabled="true"/>
+  			<h:outputText value="Prénom:" /><h:inputText value="#{infirmier.prenom}" disabled="true"/>
+  			<h:outputText value="Date de naissance:" /><h:inputText value="#{infirmier.dateConvertNaiss}" disabled="true"/>
+  			<h:outputText value="Sexe:" /> <h:inputText value="#{infirmier.sexe}" disabled="true"/><br/>
+  					</h:panelGrid>
+  				</h:panelGrid>
+  			
+  				
+  					
+  	<a4j:jsFunction name="changeExecution" action="#{infirmier.executeSoins}" reRender="tabPrestaPat, tabSoinsExe, paneSoins">
+  	
+  	</a4j:jsFunction>				
+  					<!--<h:panelGrid columns="">-->
+  		<rich:panel>
+  <h:panelGrid columns="2" id="paneSoins">
+  			<rich:dataTable id="tabPrestaPat" value="#{infirmier.listSoinsPatient}" var="presta">
+  				<f:facet name="header">Liste des soins non executés</f:facet>
+  					<rich:column>
+  				<f:facet name="header">Prestation</f:facet>
+  						#{presta.nomPrestation}
+  					</rich:column>
+  					
+  					<rich:column>
+  				<f:facet name="header">Categorie</f:facet>
+  						#{presta.nomCatPresta}
+  					</rich:column>
+  					
+  					<rich:column>
+  				<f:facet name="header">Date de consultation</f:facet>
+  						#{presta.dateConsultation}
+  					</rich:column>
+  					
+  					
+  					<rich:column>
+  				<f:facet name="header">Action</f:facet>
+  		<a4j:commandLink oncomplete="if(confirm('Voulez-vous vraiment #{presta.statusExecute} ce soin?')){changeExecution()}" value="#{presta.statusExecute}" reRender="tabPrestaPat">
+  			<f:setPropertyActionListener value="#{presta}" target="#{infirmier.selectedFiche}" />
+  		</a4j:commandLink>
+  					</rich:column>
+  			</rich:dataTable>
+  		
+  			<rich:dataTable value="#{infirmier.listSoinsPatExecute}" id="tabSoinsExe" var="prestaSoins">
+  				<f:facet name="header">Liste des soins déjà executés</f:facet>
+  				<rich:column>
+  				<f:facet name="header">Prestation</f:facet>
+  						#{prestaSoins.nomPrestation}
+  					</rich:column>
+  					
+  					<rich:column>
+  				<f:facet name="header">Categorie</f:facet>
+  						#{prestaSoins.nomCatPresta}
+  					</rich:column>
+  					
+  					<rich:column>
+  				<f:facet name="header">Date d'Execution</f:facet>
+  						#{prestaSoins.dateConvertNaiss}
+  					</rich:column>
+  					
+  					<rich:column>
+  				<f:facet name="header">Action</f:facet>
+  	<h:panelGrid columns="2">
+  			<h:graphicImage value="/images/close.png" />
+  		<a4j:commandLink oncomplete="if(confirm('Voulez-vous vraiment #{prestaSoins.statusExecute} ce soin?')){changeExecution()}" value="#{prestaSoins.statusExecute}" reRender="tabPrestaPat, tabSoinsExe">
+  			<f:setPropertyActionListener value="#{prestaSoins}" target="#{infirmier.selectedFiche}" />
+  		</a4j:commandLink>
+  </h:panelGrid>
+  					</rich:column>
+  					
+  			</rich:dataTable>
+  		</h:panelGrid>
+  				<br/>
+  	
+  	</rich:panel>
+  					<!--</h:panelGrid>  -->
+  	
+  				</rich:panel>		
+      
+  
+</html>

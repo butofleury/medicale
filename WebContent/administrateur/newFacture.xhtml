@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+   <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+			<a4j:keepAlive beanName="facture" />
+			
+			<h:panelGrid columns="3" >	
+					<h:outputText value="#{facture.selected.idFiche}" /><h:outputText value="#{facture.selected.idFicheHosp}" /><h:outputText value="#{facture.selected.idPatient}" />
+				
+				<h:outputText value="Hospitalisation du " /><h:outputText value="#{facture.selected.dateHosp} au" /><h:outputText value="#{facture.selected.dateSortie}" />
+					<h:outputText value="Visite du medecin specialiste:" /><h:outputText value="#{facture.selected.countVisiteSpec}" /><h:outputText value="#{facture.selected.sommeVisiteSpec}" />
+			<h:outputText value="Visite du medecin Generaliste:" /><h:outputText value="#{facture.selected.countVisiteGen}" /><h:outputText value="#{facture.selected.sommeVisiteSpec}" />
+			
+			</h:panelGrid>
+ 
+</html>

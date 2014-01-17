@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+   
+   
+      
+	     <rich:panel>
+	     
+	          
+	          
+	          <h:panelGrid columns="2" id="panHospSortie">
+	          		
+	            <rich:dataTable id="compteurHosp" value="#{verification.listHospiCompteur}" var="hospitalise">
+	            
+	              <f:facet name="header">Nombre de patients</f:facet>
+	                 <rich:column>
+	                      <h:panelGrid columns="2" style="font-size:16px">
+	                           <h:panelGrid  style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+						           <h:outputText value="#{hospitalise.compteur}" style="color:blue;"/> 
+						       </h:panelGrid> 
+	                           <h:outputText value="  Patient(e)s hospitalisé(e)s" />
+	                      </h:panelGrid>
+	                 </rich:column>
+	            </rich:dataTable>
+	           
+	            <rich:dataTable id="compteurHospSortie" value="#{verification.listHospiRentreCompteur}" var="rentre">
+	            
+	              <f:facet name="header">Nombre de patients</f:facet>
+	                 <rich:column>
+	                      <h:panelGrid columns="2" style="font-size:16px">
+	                           <h:panelGrid  style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+						           <h:outputText value="#{rentre.compteur}" style="color:blue;"/> 
+						       </h:panelGrid> 
+	                           <h:outputText value="  Patient(e)s hospitalisé(e)s et rentré(e)s" />
+	                      </h:panelGrid>
+	                      
+	                 </rich:column>
+	            </rich:dataTable>
+	          </h:panelGrid>
+	          
+	         <rich:scrollableDataTable  value="#{verification.listPatientDecisionSortie}" binding="#{verification.table}"
+               selection="#{verification.selection}" height="250px" width="900px" var="decision" id="infoSortie" sortMode="multy"  >
+	              
+	              <rich:column>
+	                 <f:facet name="header">Code du patient</f:facet>
+	                  #{decision.codePerso}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Nom</f:facet>
+	                 #{decision.nom}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Prenom</f:facet>
+	                 #{decision.prenom}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Code de la chambre</f:facet>
+	                #{decision.codeChambre}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Date du rendez</f:facet>
+	                 #{decision.dateRendezVous}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Service</f:facet>
+	                 #{decision.nomService}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Motif</f:facet>
+	                #{decision.motif}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Etat</f:facet>
+	                #{decision.etat}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Date de consultation</f:facet>
+	                #{decision.dateConsultation}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Date d'arrivée</f:facet>
+	                 #{decision.dateArrive}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Traitement</f:facet>
+	                #{decision.traitement}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Observation</f:facet>
+	                #{decision.observation}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Témperature</f:facet>
+	                #{decision.temperature}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Tension Arterielle</f:facet>
+	                #{decision.TA}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Frequence Cardiaque</f:facet>
+	                #{decision.FC}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Frequence Respiratoire</f:facet>
+	                #{decision.FR}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Actions</f:facet>
+	                <h:panelGrid columns="2" style="cursor:pointer">
+	                              <h:graphicImage value="/images/cocher.png" />
+	                              <a4j:commandLink  value="Selectionner" oncomplete="#{rich:component('suivantSortiePatient')}.show()" style="text-decoration:none;color:blue">
+	                                   <f:setPropertyActionListener value="#{decision}" target="#{verification.selected}" />
+	                              </a4j:commandLink>
+	              
+	                </h:panelGrid>
+	              </rich:column>
+	              
+	               
+	         </rich:scrollableDataTable>
+	         
+	         
+	     <a4j:commandButton value="Voir la selection" reRender="table"
+			action="#{verification.takeSelection}" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;"/>
+			<rich:dataTable value="#{verification.selectedPatient}" var="decision" id="table" rows="3">
+					<rich:column>
+	                 <f:facet name="header">Code du patient</f:facet>
+	                  #{decision.codePerso}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Nom</f:facet>
+	                 #{decision.nom}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Prenom</f:facet>
+	                 #{decision.prenom}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Date d'arrivée</f:facet>
+	                 #{decision.dateArrive}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Motif</f:facet>
+	                #{decision.motif}
+	              </rich:column>
+	              
+	              <rich:column>
+	                <f:facet name="header">Date de consultation</f:facet>
+	                #{decision.dateConsultation}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Témperature</f:facet>
+	                #{decision.temperature}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Tension Arterielle</f:facet>
+	                #{decision.TA}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Frequence Cardiaque</f:facet>
+	                #{decision.FC}
+	              </rich:column>
+	              <rich:column>
+	                <f:facet name="header">Frequence Respiratoire</f:facet>
+	                #{decision.FR}
+	              </rich:column>
+	               <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			              </f:facet>
+			</rich:dataTable>
+	         
+	     </rich:panel>
+     
+     
+  
+</html>

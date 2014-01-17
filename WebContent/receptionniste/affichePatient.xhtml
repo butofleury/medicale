@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+
+  
+    
+
+      <a4j:keepAlive beanName="receptionniste" />
+      
+      
+       
+         
+       <rich:panel>
+       	   <rich:dataTable value="#{receptionniste.listPatient}"  var="patient" rows="10" id="affiche" >
+              <f:facet name="header">Liste des patients</f:facet>
+              <rich:column>
+              <f:facet name="header">Code du patient</f:facet>
+              #{patient.codePerso}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Nom</f:facet>
+              #{patient.nom}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Prenom</f:facet>
+               #{patient.prenom}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Date de naissance</f:facet>
+              #{patient.dateNaissance}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Genre</f:facet>
+              #{patient.genre}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Telephone fixe</f:facet>
+              #{patient.telFixe}
+              
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Telephone mobile</f:facet>
+              #{patient.telMob}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Adresse</f:facet>
+              #{patient.adresse}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">E-mail</f:facet>
+              #{patient.email}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Profession</f:facet>
+              #{patient.profession}
+              </rich:column>
+              
+             
+              
+              <rich:column>
+              <f:facet name="header">Actions</f:facet>
+              <h:panelGrid columns="2" style="cursor:pointer">
+              <h:graphicImage value="/images/updateBtn.png" />
+              <a4j:commandLink oncomplete="#{rich:component('modifierPatient')}.show()" value="Modifier" style="text-decoration:none;color:blue" >
+              
+              <f:setPropertyActionListener value="#{patient}" target="#{receptionniste.selected}" />
+              </a4j:commandLink>
+              </h:panelGrid>
+              </rich:column>
+              
+              
+              <f:facet name="footer">
+              <rich:datascroller selectedStyle="font-weight:bold">
+             <f:facet name="first">
+                    <h:outputText value="Premier"/>
+              </f:facet>
+              <f:facet name="first_disabled">
+                   <h:outputText value="Premier"/>
+               </f:facet>
+              <f:facet name="last">
+                   <h:outputText value="Dernier"/>
+               </f:facet>
+              <f:facet name="last_disabled">
+                   <h:outputText value="Dernier"/>
+              </f:facet>
+               <f:facet name="next">
+                   <h:outputText value="Suivant"/>
+               </f:facet>
+               <f:facet name="next_disabled">
+                 <h:outputText value="Suivant"/>
+                </f:facet>
+               <f:facet name="previous">
+                    <h:outputText value="Prec"/>
+              </f:facet>
+             <f:facet name="previous_disabled">
+                    <h:outputText value="Prec"/>
+             </f:facet>
+           
+                        
+             </rich:datascroller>
+              
+              </f:facet>
+              
+              </rich:dataTable>
+            </rich:panel>
+            
+       
+  
+</html>

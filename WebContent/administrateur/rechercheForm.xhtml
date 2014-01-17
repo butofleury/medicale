@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+         <rich:panel>
+  
+				    <h:panelGrid>
+				      				
+				      			  <h:panelGrid style="margin:auto;padding-top:0px;" >
+				      			  		  <h:panelGrid columns="3" style="margin:auto;padding-top:0px;;" >
+						     <h:outputText value="Filtrer:"/>
+						                 <h:inputText value="#{recherche.valRecherche}" style=" width:300px;background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;cursor:pointer">
+						   <a4j:support event="onkeyup" action="#{recherche.getUserFound}"/>
+						                 </h:inputText>
+						             <br/>
+						         <h:outputText value="#{recherche.info}" />
+						              </h:panelGrid>
+						              
+						     <a4j:outputPanel ajaxRendered="true">		     
+						          <h:panelGrid rendered="#{recherche.medecin}">
+					<a4j:jsFunction name="changeOptionMedTrouve" action="#{recherche.changeStatusMedTrouve}" >
+				      	
+				      	</a4j:jsFunction>
+						          		<h:outputText value="#{recherche.info}" style="color:red"/>
+						             		<rich:dataTable value="#{recherche.listMedTrouve}" var="medTrouve" rows="10" id="tabMedTrouve">
+						             	
+						             			<f:facet name="header">Liste des medecins trouvés</f:facet>
+						             				<rich:column>
+						             					<f:facet name="header">Matricule</f:facet>
+						             						#{medTrouve.codeMedecin}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Nom</f:facet>
+						             						#{medTrouve.nom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Prénom</f:facet>
+						             						#{medTrouve.prenom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Date de naissance</f:facet>
+						             						#{medTrouve.dateNaiss}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Genre</f:facet>
+						             						#{medTrouve.sexe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Identifiant</f:facet>
+						             						#{medTrouve.userName}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Email</f:facet>
+						             						#{medTrouve.email}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Adresse</f:facet>
+						             						#{medTrouve.adresse}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Fixe</f:facet>
+						             						#{medTrouve.telFixe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Mobile</f:facet>
+						             						#{medTrouve.telMob}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Categorie</f:facet>
+						             						#{medTrouve.categorie}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Service</f:facet>
+						             						#{medTrouve.nomService}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Action</f:facet>
+						             <h:panelGrid columns="2">
+						             		<a4j:commandLink  onclick="#{rich:component('modifMedecinTrouve')}.show()"  value="Modifier" style="text-decoration:none;color:blue" >
+						  			<f:setPropertyActionListener value="#{medTrouve}" target="#{recherche.selected}" />
+						             	    </a4j:commandLink>
+						             		
+						             	
+						             		<a4j:commandLink  oncomplete="if(confirm('Voulez-vous vraiment #{medTrouve.etat} ce medecin?')){changeOptionMedTrouve()}" value="#{medTrouve.etat}" reRender="tabMedTrouve" style="text-decoration:none;color:blue">
+						             	<f:setPropertyActionListener value="#{medTrouve}" target="#{recherche.selected}" />
+						             		</a4j:commandLink>
+						             	
+						             		
+						             </h:panelGrid>	
+						             				</rich:column>
+						             				
+						             				<f:facet name="footer">
+											<rich:datascroller selectedStyle="font-weight:bold">
+												<f:facet name="first">
+												<h:outputText value="Première"/>
+												</f:facet>
+												<f:facet name="first_disabled">
+												<h:outputText value="Première"/>
+												</f:facet>
+												<f:facet name="last">
+												<h:outputText value="Dernière"/>
+												</f:facet>
+												<f:facet name="last_disabled">
+												<h:outputText value="Dernière"/>
+												</f:facet>
+											<f:facet name="next">
+												<h:outputText value="Suivante"/>
+												</f:facet>
+												<f:facet name="next_disabled">
+												<h:outputText value="Suivante"/>
+												</f:facet>
+												<f:facet name="previous">
+												<h:outputText value="Précedente"/>
+												</f:facet>
+												<f:facet name="previous_disabled">
+												<h:outputText value="Précedente"/>
+												</f:facet>
+												<!--<f:facet name="fastforward">
+												<h:outputText value="FF"/>
+												</f:facet>
+												<f:facet name="fastforward_disabled">
+												<h:outputText value="FF"/>
+												</f:facet>
+												<f:facet name="fastrewind">
+												<h:outputText value="FR"/>
+												</f:facet>
+												<f:facet name="fastrewind_disabled">
+												<h:outputText value="FR"/>
+												</f:facet>-->
+											</rich:datascroller>
+										</f:facet>
+										
+						             		</rich:dataTable>
+						       </h:panelGrid>
+						       
+						       <h:panelGrid rendered="#{recherche.infirmier}">
+				<a4j:jsFunction name="changeOptionInfTrouve" action="#{recherche.changeStatusInfTrouve}" >
+				</a4j:jsFunction>
+				<h:outputText value="#{recherche.info}" style="color:red"/>
+						             		<rich:dataTable value="#{recherche.listInfTrouve}" var="infTrouve" rows="10" id="tabInfTrouve">
+						          
+						             	<f:facet name="header">Liste des infirmiers trouvés</f:facet>
+						             				<rich:column>
+						             					<f:facet name="header">Matricule</f:facet>
+						             						#{infTrouve.codeInf}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Nom</f:facet>
+						             						#{infTrouve.nom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Prénom</f:facet>
+						             						#{infTrouve.prenom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Date de naissance</f:facet>
+						             						#{infTrouve.dateNaiss}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Genre</f:facet>
+						             						#{infTrouve.sexe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Identifiant</f:facet>
+						             						#{infTrouve.userName}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Service</f:facet>
+						             						#{infTrouve.nomService}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Email</f:facet>
+						             						#{infTrouve.email}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Adresse</f:facet>
+						             						#{infTrouve.adresse}
+						             				</rich:column>
+						             			
+						             			<rich:column>
+						             					<f:facet name="header">Tel mob</f:facet>
+						             						#{infTrouve.telMob}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Fixe</f:facet>
+						             						#{infTrouve.telFixe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Action</f:facet>
+						             		<h:panelGrid columns="2">
+						             		    <a4j:commandLink  onclick="#{rich:component('modifInfTrouve')}.show()"  value="Modifier" style="text-decoration:none;color:blue" >
+						  			                 <f:setPropertyActionListener value="#{infTrouve}" target="#{recherche.selected}" />
+						             	        </a4j:commandLink> 
+						             	        
+									            <a4j:commandLink  oncomplete="if(confirm('Voulez-vous vraiment #{infTrouve.etat} cet infirmier?')){changeOptionInfTrouve()}" value="#{infTrouve.etat}" reRender="tabInfTrouve">
+									             	<f:setPropertyActionListener value="#{infTrouve}" target="#{recherche.selected}" />
+									            </a4j:commandLink>
+						             		</h:panelGrid>
+						             				</rich:column>
+						             		</rich:dataTable>
+						       </h:panelGrid>
+						       
+						       <h:panelGrid rendered="#{recherche.receptionnniste}">
+				<a4j:jsFunction name="changeOptionReceptTrouve" action="#{recherche.changeStatusReceptTrouve}" ></a4j:jsFunction>
+						 <h:outputText value="#{recherche.info}" style="color:red"/>
+						       			<rich:dataTable value="#{recherche.listRecTrouve}" var="recTrouve" rows="10" id="tabRecTrouve">
+						       		<f:facet name="header">Liste des receptionnistes trouvés</f:facet>
+						             				<rich:column>
+						             					<f:facet name="header">Matricule</f:facet>
+						             						#{recTrouve.codeRec}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Nom</f:facet>
+						             						#{recTrouve.nom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Prénom</f:facet>
+						             						#{recTrouve.prenom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Date de naissance</f:facet>
+						             						#{recTrouve.dateNaiss}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Genre</f:facet>
+						             						#{recTrouve.sexe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Identifiant</f:facet>
+						             						#{recTrouve.userName}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Adresse</f:facet>
+						             						#{recTrouve.adresse}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Fixe</f:facet>
+						             						#{recTrouve.telFixe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Mobile</f:facet>
+						             						#{recTrouve.telMob}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Email</f:facet>
+						             						#{recTrouve.email}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Action</f:facet>
+						             			<h:panelGrid columns="2">
+						             		        <a4j:commandLink  onclick="#{rich:component('modifReceptTrouve')}.show()"  value="Modifier" style="text-decoration:none;color:blue" >
+						  			                    <f:setPropertyActionListener value="#{recTrouve}" target="#{recherche.selected}" />
+						             	            </a4j:commandLink>
+						             	     
+								             		 <a4j:commandLink  oncomplete="if(confirm('Voulez-vous vraiment #{recTrouve.etat} ce receptionniste?')){changeOptionReceptTrouve()}" value="#{recTrouve.etat}" reRender="tabRecTrouve" style="text-decoration:none;color:blue">
+								             	         <f:setPropertyActionListener value="#{recTrouve}" target="#{recherche.selected}" />
+								            		 </a4j:commandLink>
+						                        </h:panelGrid>
+						             		
+						             				</rich:column>
+						             		</rich:dataTable>
+						       </h:panelGrid>
+						       
+						        <h:panelGrid rendered="#{recherche.laborantin}">
+						 <a4j:jsFunction name="changeOptionLabTrouve" action="#{recherche.changeStatusLabTrouve}" ></a4j:jsFunction>
+						        	<h:outputText value="#{recherche.info}" style="color:red"/>
+						       			<rich:dataTable value="#{recherche.listLabTrouve}" var="labTrouve" rows="10" id="tabLabTrouve">
+						       		<f:facet name="header">Liste des laborantins trouvés</f:facet>
+						             				<rich:column>
+						             					<f:facet name="header">Matricule</f:facet>
+						             						#{labTrouve.codeLab}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Nom</f:facet>
+						             						#{labTrouve.nom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Prénom</f:facet>
+						             						#{labTrouve.prenom}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Date de naissance</f:facet>
+						             						#{labTrouve.dateNaiss}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Genre</f:facet>
+						             						#{labTrouve.sexe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Identifiant</f:facet>
+						             						#{labTrouve.userName}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Email</f:facet>
+						             						#{labTrouve.email}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Fixe</f:facet>
+						             						#{labTrouve.telFixe}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Tel Mobile</f:facet>
+						             						#{labTrouve.telMob}
+						             				</rich:column>
+						             				
+						             				<rich:column>
+						             					<f:facet name="header">Action</f:facet>
+						             					
+						             				<h:panelGrid columns="2">
+									             	    <a4j:commandLink  onclick="#{rich:component('modifLabTrouve')}.show()"  value="Modifier" style="text-decoration:none;color:blue" >
+									  			           <f:setPropertyActionListener value="#{labTrouve}" target="#{recherche.selected}" />
+									             	    </a4j:commandLink>
+									             	     
+									             		<a4j:commandLink  oncomplete="if(confirm('Voulez-vous vraiment #{labTrouve.etat} ce receptionniste?')){changeOptionLabTrouve()}" value="#{labTrouve.etat}" reRender="tabLabTrouve" style="text-decoration:none;color:blue">
+									             	        <f:setPropertyActionListener value="#{labTrouve}" target="#{recherche.selected}" />
+									            		</a4j:commandLink> 
+						            		       </h:panelGrid>
+						             		
+						             				</rich:column>
+						             		</rich:dataTable>
+						       </h:panelGrid>
+						       
+						    </a4j:outputPanel>
+				                 	</h:panelGrid>
+				      		</h:panelGrid>
+           
+             </rich:panel>
+  
+     
+</html>

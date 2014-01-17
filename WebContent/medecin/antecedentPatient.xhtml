@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+      <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+    
+    
+      <h:form>
+      
+      
+          <h:panelGrid style="margin:auto">
+          
+               <h:panelGrid columns="3">
+                  <h:outputText value="Patient:"  style="font-family:gautami;font-size:15px"/>
+                  <h:inputText value="#{consultation.rechercheValue}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px">
+                  
+                  <a4j:support event="onkeyup" action="#{consultation.backAntecedentPatient}" reRender="affichage,show"/>
+                  
+                  </h:inputText>
+                  
+                  <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="show">
+                      <h:outputText value="#{consultation.rechercheValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+                  </h:panelGrid>
+               </h:panelGrid>
+            
+            
+           
+           
+               <rich:dataTable value="#{consultation.listAntecedentPatient}" var="antecedent" id="affichage" rows="13">
+                
+                  
+                  <rich:column>
+                    <f:facet name="header">Code du patient</f:facet>
+                     <h:outputText value="#{antecedent.codePerso}" style="font-family:gautami;font-size:12px;color:blue"/> 
+                  </rich:column>
+               
+               
+                  <rich:column>
+                    <f:facet name="header">Nom</f:facet>
+                     <h:outputText value= "#{antecedent.nom}" style="font-family:gautami;font-size:12px;color:blue"/>
+                  </rich:column>
+                  
+                  <rich:column>
+                    <f:facet name="header">Prenom</f:facet>
+                     <h:outputText value="#{antecedent.prenom}" style="font-family:gautami;font-size:12px;color:blue"/>
+                  </rich:column>
+                  
+                  <rich:column>
+                    <f:facet name="header">Genre</f:facet>
+                     <h:outputText value="#{antecedent.genre}" style="font-family:gautami;font-size:12px;color:blue"/>
+                  </rich:column>
+                  <rich:column>
+                    <f:facet name="header">Date de naissance</f:facet>
+                      <h:outputText value="#{antecedent.dateNaissance}" style="font-family:gautami;font-size:12px;color:blue"/>
+                  </rich:column>
+                  
+                   <rich:column style="background-color:rgba(242,185,11,0.4)">
+                    <f:facet name="header">Observation</f:facet>
+                    #{antecedent.observation}
+                  </rich:column>
+                  
+                  <rich:column style="background-color:rgba(242,185,11,0.4)">
+                    <f:facet name="header">Traitement</f:facet>
+                    #{antecedent.traitement}
+                  </rich:column>
+                 
+                  <rich:column>
+                    <f:facet name="header">Prestation</f:facet>
+                    #{antecedent.nomPresta}
+                  </rich:column>
+                  
+                  <rich:column style="background-color:rgba(242,185,11,0.4)">
+                     <f:facet name="header">Motif</f:facet>
+                   #{antecedent.motif}
+                  </rich:column>
+                 
+                  <rich:column style="background-color:rgba(242,185,11,0.4)">
+                     <f:facet name="header">Etat</f:facet>
+                    #{antecedent.etat}
+                  </rich:column>
+                  
+                  <rich:column>
+                     <f:facet name="header">Date de consultation</f:facet>
+                    #{antecedent.dateConsultation}
+                  </rich:column>
+                  
+                  <rich:column>
+                    <f:facet name="header">Actions</f:facet>
+                     
+                     <h:panelGrid columns="2" style="cursor:pointer" >
+                        <h:graphicImage value="/images/details.png" />
+                        <a4j:commandLink  value="Details" oncomplete="#{rich:component('detailsAntecedent')}.show()" style="text-decoration:none;color:blue">
+                        
+                        <f:setPropertyActionListener value="#{antecedent}" target="#{consultation.selected}" />
+                        </a4j:commandLink>
+                     </h:panelGrid>
+                    
+                    
+                     
+                  </rich:column>
+                  
+                  <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			         </f:facet>
+              
+                  
+               </rich:dataTable>
+              
+              
+          </h:panelGrid> 
+              
+      
+         
+      </h:form>
+  
+</html>
+   

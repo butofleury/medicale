@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+ <h:form>
+       <a4j:keepAlive beanName="facture" />
+         <rich:panel>
+             <h:panelGrid columns="2" style="margin:auto">
+                
+                <h:graphicImage value="/images/alerte.png" />
+                
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nom:" /> <h:outputText value="#{facture.selected.nom}" />
+                    <h:outputText value="Prenom:" /> <h:outputText value="#{facture.selected.prenom}" />
+                    <h:outputText value="Prestation:" /> <h:outputText value="#{facture.selected.nomPresta}" />
+                    <h:outputText value="Prix:" /> <h:outputText value="#{facture.selected.prix}" />
+                </h:panelGrid>
+             
+             </h:panelGrid>
+             <h:panelGrid columns="2" style="margin:auto">
+                 <a4j:commandButton action="#{facture.payeConsultation}" value="Oui" onclick="#{rich:component('paiementFacture')}.hide();" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;cursor:pointer;" reRender="messageF, affichage, affichageDetail"/>
+                 <a4j:commandButton onclick="#{rich:component('paiementFacture')}.hide();" value="Non" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;cursor:pointer;"/>
+             </h:panelGrid>
+             
+             
+         
+         </rich:panel>
+  </h:form>
+</html>

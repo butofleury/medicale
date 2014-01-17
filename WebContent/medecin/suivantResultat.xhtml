@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+     <h:form>
+     
+     <a4j:keepAlive beanName="verification" />
+     
+     
+     <h:panelGrid style="margin:auto" id="formulaire">
+     
+       <h:panelGrid columns="2" id="information">
+                        <h:graphicImage value="/images/infoReturn.png" rendered="#{verification.error}"/>
+			            <h:outputText value="#{verification.message}" style="font-family:gautami;color:red;font-size:14px"/>
+		       </h:panelGrid>  
+        <rich:panel>
+          <h:panelGrid columns="2">
+               
+               <h:outputText value="Prestation:" /> <h:inputText value="#{verification.selected.nomPresta}" disabled="true" style="color:blue"/>
+               
+               <h:outputText value="Resultat:" /> <h:inputTextarea value="#{verification.selected.resultat}" />
+          
+          </h:panelGrid>
+          
+            <h:panelGrid columns="2" style="margin:auto">
+            
+               <a4j:commandButton action="#{verification.saisiResultat}" value="Enregistrer" reRender="infoResultat,information" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;cursor:pointer;"/>
+               <a4j:commandButton action="#{verification.initialiseResultat}" value="Annuler" reRender="formulaire" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;cursor:pointer;"/>
+            </h:panelGrid>
+        </rich:panel>
+     </h:panelGrid>
+     </h:form>
+</html>

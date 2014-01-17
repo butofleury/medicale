@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+		<head>
+			 
+			 <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+			
+	   </head>
+		
+		<h:form>
+		
+		
+		<h:panelGrid columns="" style="margin:left">
+				<h:panelGrid columns="1" id="message" >
+			<h:outputText value="#{hospitalisation.message}" style="font-family:gautami;color:red;font-size:14px"/>
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+           		
+            <h:outputText value="Patient:" style="font-family:gautami;font-size:15px"/>
+            <h:inputText value="#{hospitalisation.searchValue}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px">
+              <a4j:support event="onkeyup" action="#{hospitalisation.backPatientInformation}"  reRender="infoSuivi,vue"/>
+            </h:inputText>
+            
+             <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="vue">
+               <h:outputText value="#{hospitalisation.searchValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+             </h:panelGrid>
+            
+           </h:panelGrid>
+           
+			<rich:panel>
+  				<f:facet name="header">Fiche d'hospitalisation</f:facet>
+  		<rich:dataTable value="#{hospitalisation.listSuiviPatHosp}" id="infoSuivi" var="suivi" rows="7">
+  			<rich:column>
+		        <f:facet name="header">Code</f:facet>
+		        	#{suivi.code}         
+		      </rich:column>
+		      <rich:column>
+		        <f:facet name="header">Nom</f:facet>
+		        	#{suivi.nom}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Prenom</f:facet>
+		        	#{suivi.prenom}
+		      </rich:column>
+  		 
+  				<rich:column>
+		        <f:facet name="header">Date de Naissance</f:facet>
+		      		 #{suivi.dateNaissance}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Motif</f:facet>
+		        	#{suivi.motifHosp}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Chambre</f:facet>
+		       		 #{suivi.codeChambre}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Prestation</f:facet>
+		       		#{suivi.nomPresta}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Temperature</f:facet>
+		      		 #{suivi.temperature}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">TA</f:facet>
+		        		#{suivi.tensionArt}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">FC</f:facet>
+		       		 #{suivi.frequenceCard}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">FR</f:facet>
+		       		#{suivi.frequenceResp}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Visite Médicale</f:facet>
+		      		  #{suivi.nomVisite}
+		      </rich:column>
+				
+			 <rich:column>
+			 	<f:facet name="header">Diurèse</f:facet>
+			 		#{suivi.diurese}
+			 </rich:column>
+		      <rich:column>
+		        <f:facet name="header">Date d'enregistrement</f:facet>
+		        	#{suivi.dateRegisterTraite}
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">Action</f:facet>
+		      <a4j:commandLink action="#{hospitalisation.getPat}"  onclick="#{rich:component('modifParamPatHosp')}.show()" value="Modifier" reRender="formModifPatHosp" style="font-family:gautami;font-size:12px;color:blue">
+		      		<f:setPropertyActionListener value="#{suivi}" target="#{hospitalisation.selected}" />
+		      </a4j:commandLink>
+		       
+		      </rich:column>
+		      
+  		</rich:dataTable>
+  					
+  			</rich:panel>
+  		</h:panelGrid>
+  	
+  	   </h:form>
+  		
+  				<rich:modalPanel id="modifParamPatHosp" width="600" height="540">
+  					<f:facet name="header">Modification des parametres</f:facet>
+  						<f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifParamPatHosp')}.hide();" style="cursor:pointer"/>
+				        </f:facet>
+				    <ui:include src="/infirmier/formModifPatientHospitalisation.xhtml" />
+  				</rich:modalPanel>
+  	
+</html>

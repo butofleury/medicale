@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+   <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+   <link rel="stylesheet" href="../design/styleR.css" />
+   <title><h:outputText value="#{login.nameUser}"/>-<h:outputText value="#{login.nomCat}" />| Patient Software</title>
+  
+  </head>
+
+  <body>
+      <h:form>
+      
+      
+  	 <a4j:keepAlive beanName="laborantin" /> 
+  			
+     <ui:include src="/rootLab/entete.xhtml" />
+     
+     <div id="corps"> 
+           
+      <ui:include src="/rootLab/menuPrincipale.xhtml" />
+           <div id="centre">
+           
+           
+                       <div id="lien">
+			              <h:graphicImage value="/images/lienPro.png" />
+			           </div>
+             <a4j:outputPanel id="main-panel">
+              <h:panelGrid rendered="#{laborantin.verification}">
+		                       <div id="menuVerification">
+		                         <h:panelGrid columns="2">
+					                 <a4j:commandLink oncomplete="#{rich:component('enregistrerResultat')}.show()" id="resultatLink">
+				                          <h:graphicImage value="/images/resultatSave.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+				                     </a4j:commandLink>
+						      
+						                <h:outputText value="Verification" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+						                
+		                          </h:panelGrid>
+		                          
+		                     </div>
+                       
+                         <h:panelGrid style="margin-left:2%">
+                              
+                              <ui:include src="/laborantin/suiviPatient.xhtml" />
+                             
+                         </h:panelGrid>
+                             
+                   </h:panelGrid>
+                   
+                   <h:panelGrid rendered="#{laborantin.resultatExamen}">
+                   		
+                   			<ui:include src="/laborantin/detailsResultat.xhtml" />
+                   </h:panelGrid>
+             </a4j:outputPanel>
+           </div>
+  
+    </div>
+       <ui:include src="/rootLab/pied.xhtml" />
+       
+               <rich:toolTip mode="client" followMouse="true"  for="searchLink">
+					      <h:panelGrid style="width:190px">
+					          Filtrer la liste en completant le champ
+					      </h:panelGrid>
+			   </rich:toolTip>
+  </h:form>
+     
+         <rich:modalPanel id="enregistrerResultat" width="800" height="500">
+                <f:facet name="header">Enregistrer les resultats</f:facet>
+                  <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('enregistrerResultat')}.hide();" style="cursor:pointer"/>
+				
+				  </f:facet> 
+				<ui:include src="/laborantin/enregistrerResultat.xhtml"/>  
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="suivantResultat" width="500" height="300">
+                <f:facet name="header">Formulaire de saisie</f:facet>
+	                <f:facet name="controls">
+							<h:graphicImage value="/images/close.png" onclick="#{rich:component('suivantResultat')}.hide();" style="cursor:pointer"/>
+					
+					</f:facet> 
+				
+				<a4j:include viewId="/laborantin/suivantResultat.xhtml"/> 
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="detailsSuivi" width="750" height="400">
+               <f:facet name="header">Details sur le patient</f:facet>
+                  <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('detailsSuivi')}.hide();" style="cursor:pointer"/>
+				  </f:facet> 
+				<a4j:include viewId="/laborantin/detailsSuivi.xhtml"/>   
+           </rich:modalPanel>
+        
+        <rich:modalPanel id="changePassWord" width="300" height="200">
+  				<f:facet name="header">Nouveau mot de passe</f:facet>
+  					<f:facet name="controls">
+  						<h:graphicImage value="/images/close.png" onclick="#{rich:component('changePassWord')}.hide();" style="cursor:pointer"/>
+  					</f:facet>
+  				<ui:include src="/infirmier/changePassWord.xhtml"/>
+  		</rich:modalPanel>
+  		 
+  </body>
+</html>

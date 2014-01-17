@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+     <link rel="stylesheet" href="../design/styleMed.css" />
+     <title><h:outputText value="#{login.nameUser}"/>-<h:outputText value="#{login.nomCat}" />| Patient Software</title>
+  </head>
+
+  <body>
+      <h:form>
+      
+      <a4j:keepAlive beanName="consultation" />
+  	  <a4j:keepAlive beanName="verification" />	
+  	  
+  	  
+     <ui:include src="/rootMed/entete.xhtml" />
+     
+     <div id="corps"> 
+           
+      <ui:include src="/rootMed/menuPrincipale.xhtml" />
+      
+           <div id="centre">
+                   
+                       <div id="lien">
+			              <h:graphicImage value="/images/lienPro.png" />
+			           </div>
+                   
+                      
+               <a4j:outputPanel id="main-panel">
+               
+                   <h:panelGrid rendered="#{consultation.consultation}">
+                        
+                        <div id="menuFiche">
+                          <h:panelGrid columns="4">
+			                    <a4j:commandLink oncomplete="#{rich:component('nouveauConsultation')}.show()" id="nouveauLink">
+			                     
+			                      <h:graphicImage value="/images/nouveauConsultation.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+			                      <a4j:support event="onclick" action="#{rendez.initialiseValue}" reRender="contenuFiche"/>
+			                    </a4j:commandLink>
+				                <a4j:commandLink oncomplete="#{rich:component('patientAuRendez')}.show()" id="statistiqueLink">
+				                   <h:graphicImage value="/images/statistique.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+				                </a4j:commandLink>
+				                
+				                <a4j:commandLink oncomplete="#{rich:component('antecedentPatient')}.show()" id="antecedentLink">
+				                  <h:graphicImage value="/images/antecedent.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+				                </a4j:commandLink>
+				                
+				                <h:outputText value="Consultation" style="font-size:20px;font-family:gautami;color:blue;"/>  
+				                
+                     </h:panelGrid>
+                        
+                        </div>
+                   
+                          <h:panelGrid style="margin-left:5%">
+                          
+                              <ui:include src="/medecin/afficheConsultation.xhtml" />
+                            
+                          </h:panelGrid>
+                          
+                   </h:panelGrid>
+                   
+                   
+                   <h:panelGrid rendered="#{consultation.verification}">
+		                       <div id="menuVerification">
+		                         <h:panelGrid columns="2">
+					                 <a4j:commandLink oncomplete="#{rich:component('enregistrerResultat')}.show()" id="resultatLink">
+				                          <h:graphicImage value="/images/resultatSave.png" style="margin-left:50px;margin-top:-40px;padding-right:10px;border-right:1px solid #a2a5a9;cursor:pointer"/>
+				                     </a4j:commandLink>
+						      
+						                <h:outputText value="Suivi" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+						                
+		                          </h:panelGrid>
+		                          
+		                     </div>
+                       
+                         <h:panelGrid style="margin-left:2%">
+                              
+                              <ui:include src="/medecin/suiviPatient.xhtml" />
+                             
+                         </h:panelGrid>
+                             
+                   </h:panelGrid>
+                   
+                   <h:panelGrid rendered="#{consultation.liberation}">
+                      
+                                <div id="menuRecherche">
+		                         
+		                            <h:outputText value="Sortie" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                        
+		                        </div>
+                        
+                        
+		                        <h:panelGrid style="margin-left:5%">
+		                              
+		                            <ui:include src="/medecin/sortiePatient.xhtml"  />  
+		                        
+		                        </h:panelGrid>
+                   
+                   </h:panelGrid>
+                   
+                   <h:panelGrid rendered="#{consultation.recherche}">
+                        
+		                        <div id="menuRecherche">
+		                         
+		                            <h:outputText value="Recherche" style="font-size:20px;font-family:gautami;color:blue;padding-right:10px;padding-left:10px;padding-top:30px;margin-right:50px"/>  
+		                        
+		                        </div>
+		                        
+		                        <h:panelGrid style="margin-left:1%">
+		                             <a4j:include viewId="/medecin/rechercheInfoPatient.xhtml"  />  
+		                        </h:panelGrid>
+                   </h:panelGrid>
+                   
+               </a4j:outputPanel>
+           </div>
+  
+    </div>
+       <ui:include src="/rootMed/pied.xhtml" />
+       
+                
+               <rich:toolTip mode="client" followMouse="true"  for="nouveauLink">
+					      <h:panelGrid style="width:110px">
+					          Nouvelle consultation
+					      </h:panelGrid>
+			   </rich:toolTip>
+			   
+			   <rich:toolTip mode="client" followMouse="true"  for="statistiqueLink">
+					      <h:panelGrid style="width:110px">
+					          Situation hospitalière
+					      </h:panelGrid>
+			   </rich:toolTip>
+			   
+			   <rich:toolTip mode="client" followMouse="true"  for="antecedentLink">
+					      <h:panelGrid style="width:200px">
+					          Afficher les antécedents des patients
+					      </h:panelGrid>
+			   </rich:toolTip>
+			   
+			   <rich:toolTip mode="client" followMouse="true"  for="searchLink" >
+					      <h:panelGrid style="width:190px">
+					          Filtrer la liste en completant le champ
+					      </h:panelGrid>
+			   </rich:toolTip>
+			   
+  </h:form> 
+  
+            <rich:modalPanel id="nouveauConsultation" width="990" height="600">
+               <f:facet name="header">Nouvelle consultation</f:facet>
+					<f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('nouveauConsultation')}.hide();" style="cursor:pointer"/>
+				    </f:facet>
+                 <ui:include src="/medecin/ficheMedicale.xhtml" />
+            </rich:modalPanel>
+            
+            
+            <rich:modalPanel id="modifierConsultation" width="700" height="430">
+               <f:facet name="header">Modifier consultation</f:facet>
+                    <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifierConsultation')}.hide();" style="cursor:pointer"/>
+				    </f:facet>
+                 <a4j:include viewId="/medecin/modifierConsultation.xhtml"/>
+            </rich:modalPanel>
+        
+            <rich:modalPanel id="modifierHospitalisation" width="700" height="530">
+                <f:facet name="header">Modifier consultation</f:facet>
+                    <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifierHospitalisation')}.hide();" style="cursor:pointer"/>
+				    </f:facet>
+                <a4j:include viewId="/medecin/modifierHospitalisation.xhtml"/>
+            </rich:modalPanel>
+            
+            <rich:modalPanel id="patientAuRendez" width="800" height="530">
+                <f:facet name="header">Situation des consultations</f:facet>
+                    <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('patientAuRendez')}.hide();" style="cursor:pointer"/>
+				    </f:facet>
+                <a4j:include viewId="/medecin/patientAuRendezVous.xhtml"/>
+            </rich:modalPanel>
+            
+            <rich:modalPanel id="antecedentPatient" width="980" height="570">
+            
+                 <f:facet name="header">Antecedent des patients</f:facet>
+                    <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('antecedentPatient')}.hide();" style="cursor:pointer"/>
+				    </f:facet> 
+               <ui:include src="/medecin/antecedentPatient.xhtml" />
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="detailsAntecedent" width="750" height="400">
+               
+               <f:facet name="header">Details sur les antecedents</f:facet>
+                  <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('detailsAntecedent')}.hide();" style="cursor:pointer"/>
+				  </f:facet> 
+			  <a4j:include viewId="/medecin/detailsAntecedent.xhtml"/>  
+           </rich:modalPanel>
+           
+           
+           <rich:modalPanel id="detailsSuivi" width="750" height="400">
+               <f:facet name="header">Details sur le patient</f:facet>
+                  <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('detailsSuivi')}.hide();" style="cursor:pointer"/>
+				  </f:facet> 
+				<a4j:include viewId="/medecin/detailsSuivi.xhtml"/>   
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="enregistrerResultat" width="800" height="500">
+                <f:facet name="header">Enregistrer les resultats</f:facet>
+                  <f:facet name="controls">
+						<h:graphicImage value="/images/close.png" onclick="#{rich:component('enregistrerResultat')}.hide();" style="cursor:pointer"/>
+				
+				  </f:facet> 
+				<ui:include src="/medecin/enregistrerResultat.xhtml"/>  
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="suivantResultat" width="500" height="300">
+                <f:facet name="header">Formulaire de saisie</f:facet>
+	                <f:facet name="controls">
+							<h:graphicImage value="/images/close.png" onclick="#{rich:component('suivantResultat')}.hide();" style="cursor:pointer"/>
+					
+					</f:facet> 
+				
+				<a4j:include viewId="/medecin/suivantResultat.xhtml"/> 
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="suivantSortiePatient" width="700" height="400" >
+                <f:facet name="header">Prendre une décision</f:facet>
+                    <f:facet name="controls">
+							<h:graphicImage value="/images/close.png" onclick="#{rich:component('suivantSortiePatient')}.hide();" style="cursor:pointer"/>
+					
+				    </f:facet> 
+				    
+				 <a4j:include viewId="/medecin/suivantSortiePatient.xhtml"/>    
+           </rich:modalPanel>
+           
+           <rich:modalPanel id="changePassWord" width="300" height="200">
+  				<f:facet name="header">Nouveau mot de passe</f:facet>
+  					<f:facet name="controls">
+  						<h:graphicImage value="/images/close.png" onclick="#{rich:component('changePassWord')}.hide();" style="cursor:pointer"/>
+  					</f:facet>
+  				<ui:include src="/infirmier/changePassWord.xhtml"/>
+  		   </rich:modalPanel>
+  		   
+  </body>    
+  
+</html>

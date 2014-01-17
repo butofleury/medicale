@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head></head>
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+  		<h:form>
+	<a4j:keepAlive beanName="service" />
+	
+	<h:panelGrid columns="2" id="information">
+                        <h:graphicImage value="/images/infoReturn.png" rendered="#{service.error}"/>
+			            <h:outputText value="#{service.message}" style="font-family:gautami;color:red;font-size:14px"/>
+	</h:panelGrid> 
+		
+  	<rich:panel style="width:280px" id="modifContenu">
+  	   <h:panelGrid style="margin:auto">
+		  		<h:panelGrid columns="2" >
+		  			
+		  		    <h:outputText value="Service:" /> <h:inputText value="#{service.selected.nomService}" />
+		  			
+		  		</h:panelGrid>
+	   </h:panelGrid>
+	   
+  	   <h:panelGrid style="margin:auto" columns="2">
+  		   
+  		    <a4j:commandButton action="#{service.modifierService}" value="Modifier" reRender="information,tableService"  style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+  		    <a4j:commandButton action="#{service.initialiseValue}" value="Annuler" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;" reRender="information,modifContenu"/>
+  		
+  	   </h:panelGrid>
+  	</rich:panel>
+  		</h:form>
+  
+</html>

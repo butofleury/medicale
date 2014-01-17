@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+  <h:form>
+  
+     <h:panelGrid columns="2">
+         <h:panelGrid>
+				      <a4j:outputPanel id="filtre">
+				           <h:panelGrid rendered="#{rendez.cacheHistorique}">
+				             <rich:panel>
+				           
+				            
+				            
+				       
+				              <rich:dataTable value="#{rendez.listRendez}" var="rendezValue" id="listeRendez" rows="15">
+				                 <f:facet name="header">Tables des rendez-vous</f:facet>
+				              
+				              <rich:column>
+				              <f:facet name="header">Code du patient</f:facet>
+				              #{rendezValue.codePerso}
+				              </rich:column>
+				              <rich:column>
+				              <f:facet name="header">Nom du patient</f:facet>
+				              
+				              #{rendezValue.nom}
+				              </rich:column>
+				              <rich:column>
+				              <f:facet name="header">Prenom du patient</f:facet>
+				              #{rendezValue.prenom}
+				              </rich:column>
+				              <rich:column>
+				              <f:facet name="header">Date du rendez-vous</f:facet>
+				              #{rendezValue.dateRendezVs}
+				              </rich:column>
+				              <rich:column>
+				              <f:facet name="header">Service</f:facet>
+				              #{rendezValue.nomService}
+				              </rich:column>
+				              <rich:column>
+				              <f:facet name="header">Date d'attribution</f:facet>
+				              #{rendezValue.dateAttribution}
+				              </rich:column>
+				              
+				             
+				              
+				             
+				            
+				               <f:facet name="footer">
+				                 <rich:datascroller selectedStyle="font-weight:bold">
+				             <f:facet name="first">
+				                    <h:outputText value="Premier"/>
+				              </f:facet>
+				              <f:facet name="first_disabled">
+				                   <h:outputText value="Premier"/>
+				               </f:facet>
+				              <f:facet name="last">
+				                   <h:outputText value="Dernier"/>
+				               </f:facet>
+				              <f:facet name="last_disabled">
+				                   <h:outputText value="Dernier"/>
+				              </f:facet>
+				               <f:facet name="next">
+				                   <h:outputText value="Suivant"/>
+				               </f:facet>
+				               <f:facet name="next_disabled">
+				                 <h:outputText value="Suivant"/>
+				                </f:facet>
+				               <f:facet name="previous">
+				                    <h:outputText value="Prec"/>
+				              </f:facet>
+				             <f:facet name="previous_disabled">
+				                    <h:outputText value="Prec"/>
+				             </f:facet>
+				           
+				                        
+				             </rich:datascroller>
+				              </f:facet>
+				              </rich:dataTable>
+				             
+				              </rich:panel>
+				         </h:panelGrid> 
+				         
+				          
+				                         
+				               
+				               
+				              
+				               
+				                         
+				                             <h:panelGrid rendered="#{rendez.rechercheFiltre}">
+				                              <rich:panel>
+				          <rich:panel>
+			               <rich:calendar value="#{rendez.dateFiltre}" datePattern="yyyy-MM-dd" />
+			               
+			              
+			                 <a4j:commandButton action="#{rendez.cachePage}" reRender="filtre" value="Rechercher" />    
+			               </rich:panel> 
+				                             
+									              <rich:dataTable value="#{rendez.listRendezFiltre}" var="rendezValue" id="listeFiltre" rows="10">
+									                 <f:facet name="header">Tables des rendez-vous</f:facet>
+									              
+									              <rich:column>
+									              <f:facet name="header">Code du patient</f:facet>
+									              #{rendezValue.codePerso}
+									              </rich:column>
+									              <rich:column>
+									              <f:facet name="header">Nom du patient</f:facet>
+									              
+									              #{rendezValue.nom}
+									              </rich:column>
+									              <rich:column>
+									              <f:facet name="header">Prenom du patient</f:facet>
+									              #{rendezValue.prenom}
+									              </rich:column>
+									              <rich:column>
+									              <f:facet name="header">Date du rendez-vous</f:facet>
+									              #{rendezValue.dateRendezVs}
+									              </rich:column>
+									              <rich:column>
+									              <f:facet name="header">Service</f:facet>
+									              #{rendezValue.nomService}
+									              </rich:column>
+									              <rich:column>
+									              <f:facet name="header">Date d'attribution</f:facet>
+									              #{rendezValue.dateAttribution}
+									              </rich:column>
+									              
+									             
+									              
+									             
+									            
+									               <f:facet name="footer">
+									                 <rich:datascroller selectedStyle="font-weight:bold">
+									             <f:facet name="first">
+									                    <h:outputText value="Premier"/>
+									              </f:facet>
+									              <f:facet name="first_disabled">
+									                   <h:outputText value="Premier"/>
+									               </f:facet>
+									              <f:facet name="last">
+									                   <h:outputText value="Dernier"/>
+									               </f:facet>
+									              <f:facet name="last_disabled">
+									                   <h:outputText value="Dernier"/>
+									              </f:facet>
+									               <f:facet name="next">
+									                   <h:outputText value="Suivant"/>
+									               </f:facet>
+									               <f:facet name="next_disabled">
+									                 <h:outputText value="Suivant"/>
+									                </f:facet>
+									               <f:facet name="previous">
+									                    <h:outputText value="Prec"/>
+									              </f:facet>
+									             <f:facet name="previous_disabled">
+									                    <h:outputText value="Prec"/>
+									             </f:facet>
+									           
+									                        
+									             </rich:datascroller>
+									              </f:facet>
+									              </rich:dataTable>
+									            </rich:panel>  
+									       </h:panelGrid>
+						 </a4j:outputPanel>
+						 
+	    </h:panelGrid>
+	     <h:panelGrid style="padding-left:10px">
+			      
+			     
+			     <a4j:commandLink action="#{rendez.cachePage}" reRender="filtre">
+			         <h:graphicImage value="/images/cacher.png" id="cacher" style="padding-bottom:9px;border-bottom:2px solid #a2a5a9;"/>
+			     </a4j:commandLink>
+			     <a4j:commandLink action="#{rendez.rechargePage}" id="recharger" reRender="filtre">
+			         <h:graphicImage value="/images/afficher.png" />
+			         
+			     </a4j:commandLink>
+	     </h:panelGrid>  
+	     
+	   </h:panelGrid> 
+	   
+	    <rich:toolTip for="cacher" mode="client" followMouse="true">
+			     <h:panelGrid>
+			       Remonter
+			     </h:panelGrid>
+	    </rich:toolTip>
+	    
+	    <rich:toolTip for="recharger" mode="client" followMouse="true">
+	            <h:panelGrid>
+	            
+	             Dérouler
+	            </h:panelGrid>
+	    </rich:toolTip>
+  </h:form>
+</html>

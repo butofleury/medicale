@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+    
+    
+       <rich:panel>
+      		
+      				<!--<h1>Patient</h1>-->
+      				<h:outputText value="Patient:" />
+      	<h:inputText value="#{recherche.codeP}" id="pat"/>
+      			
+       <rich:suggestionbox height="300" width="400" fetchValue="#{trouve.codeP}" suggestionAction="#{recherche.suggestPatient}" for="pat" var="trouve" nothingLabel="Pas de suggestion">
+   			<rich:column>
+   				#{trouve.codeP}
+   			</rich:column>
+   			
+   			<rich:column>
+   				#{trouve.nom}
+   			</rich:column>
+   			
+   			<rich:column>
+   				#{trouve.prenom}
+   			</rich:column>
+   			
+   <a4j:support event="onselect" action="#{recherche.getPatSelected}" reRender="idP, idPat, nomP, prenomP, adresseP, dateN, tabDetail"> 
+   			<f:setPropertyActionListener value="#{trouve}" target="#{recherche.patientSelected}" />
+   </a4j:support>
+      			</rich:suggestionbox>
+      		<h:panelGrid columns="2">
+      		
+      <h:inputHidden id="idP" value="#{recherche.idPersonne}" />
+      <h:inputHidden id="idPat" value="#{recherche.idPatient}" />
+      <h:outputLabel value="Nom:" for="nomP" /><h:inputText id="nomP" value="#{recherche.nom}" />
+      <h:outputLabel value="Prénom:" for="prenomP" /><h:inputText id="prenomP" value="#{recherche.prenom}" />
+   	  <h:outputLabel value="Adresse" for="adresseP" /><h:inputText id="adresseP" value="#{recherche.adresse}" />
+	  <h:outputLabel value="Date de Naissance:" for="dateN" /><h:inputText id="dateN" value="#{recherche.dateTraite}" />
+		
+      		</h:panelGrid>
+      		<rich:dataTable id="tabDetail" value="#{recherche.listDetailPatient}" var="detailPat" rows="2">
+      				<rich:column>
+      					<f:facet name="header">Service</f:facet>
+      						#{detailPat.nomService}
+      				</rich:column>
+      				
+      				<rich:column>
+      					<f:facet name="header">Date d'attribution</f:facet>
+      						#{detailPat.dateAttribution}
+      				</rich:column>
+      				
+      				<rich:column>
+      					<f:facet name="header">Date de rendez-vous</f:facet>
+      						#{detailPat.dateRendezVous}
+      				</rich:column>
+      				
+      				<rich:column>
+      					<f:facet name="header">Montant payé</f:facet>
+      						#{detailPat.montantPayer}
+      				</rich:column>
+      				
+      				<rich:column>
+      					<f:facet name="header">Montant Restant</f:facet>
+      						#{detailPat.montantRestant}
+      				</rich:column>
+      				<f:facet name="footer">
+							<rich:datascroller selectedStyle="font-weight:bold">
+								<f:facet name="first">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="first_disabled">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="last">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+								<f:facet name="last_disabled">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+							<f:facet name="next">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="next_disabled">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="previous">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<f:facet name="previous_disabled">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<!--<f:facet name="fastforward">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastforward_disabled">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastrewind">
+								<h:outputText value="FR"/>
+								</f:facet>
+								<f:facet name="fastrewind_disabled">
+								<h:outputText value="FR"/>
+								</f:facet>-->
+							</rich:datascroller>
+						</f:facet>
+      		</rich:dataTable>
+    </rich:panel>
+   
+</html>

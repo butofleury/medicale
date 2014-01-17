@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+    
+	      <rich:panel>
+	     
+	         <h:panelGrid columns="3">
+	            <h:outputText value="Recherche:" style="font-style:gautami,font-size:1.1em"/>
+	            <h:inputText value="#{recherche.searchValue}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px">
+	            
+	             <a4j:support event="onkeyup" action="#{recherche.backInformation}" reRender="affichage,affichage2,affichage3,affichage4,show"/>
+	            </h:inputText>
+	             <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="show">
+                      <h:outputText value="#{recherche.searchValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+                  </h:panelGrid>
+	         </h:panelGrid>
+	         
+	          <h:panelGrid columns="3">
+	         <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+	         
+	         <rich:dataTable value="#{recherche.listInfoRendez}" var="value" id="affichage" rows="3">
+	           <f:facet name="header">Informations sur le rendez-vous</f:facet>
+	            <rich:column style="background-color:rgba(242,185,11,0.4)">
+	             <f:facet name="header">Reçu par:</f:facet>
+	               <h:panelGrid columns="2" style="color:blue">
+	                 
+	                 <h:outputText value="#{value.nomRec}" />
+	               </h:panelGrid>
+	            </rich:column>
+	            <rich:column>
+	               <f:facet name="header">Code patient</f:facet>
+	               #{value.codePerso}
+	            </rich:column>
+	            <rich:column>
+	               <f:facet name="header">Nom</f:facet>
+	               #{value.nom}
+	            </rich:column>
+	            
+	            <rich:column>
+	               <f:facet name="header">Prenom</f:facet>
+	               #{value.prenom}
+	            </rich:column>
+	            
+	            <rich:column>
+	              <f:facet name="header">Date du rendez-vous</f:facet>
+	              #{value.dateRendezVous}
+	            </rich:column>
+	            
+	            <rich:column style="background-color:rgba(242,185,11,0.4)">
+	             <f:facet name="header">Service</f:facet>
+	             #{value.nomService}
+	            </rich:column>
+	            
+	             <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			         </f:facet>
+	         </rich:dataTable>
+	         
+	         </h:panelGrid>
+	         <h:graphicImage value="/images/flecheDroit40.png" />
+	        
+	        
+	        
+	        
+	        
+	          <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+	            <rich:dataTable value="#{recherche.listInfoConsul}" var="info" id="affichage2" rows="3">
+	           <f:facet name="header">Informations sur la consultation</f:facet>
+	           
+	            <rich:column style="background-color:rgba(242,185,11,0.4)">
+	            <f:facet name="header">Consulté par Dr:</f:facet>
+	             <h:panelGrid columns="2">
+	                
+	                <h:outputText value="#{info.nomMed}" style="color:blue"/>
+	             </h:panelGrid>
+	            </rich:column>
+	            <rich:column>
+	               <f:facet name="header">Code patient</f:facet>
+	               #{info.codePerso}
+	            </rich:column>
+	            
+	            <rich:column>
+	               <f:facet name="header">Nom</f:facet>
+	               #{info.nom}
+	            </rich:column>
+	            
+	            <rich:column>
+	               <f:facet name="header">Prenom</f:facet>
+	               #{info.prenom}
+	            </rich:column>
+	            <rich:column>
+	              <f:facet name="header">Date de la consultation</f:facet>
+	              #{info.dateConsultation}
+	            </rich:column>
+	            
+	            <rich:column style="background-color:rgba(242,185,11,0.4)">
+	             <f:facet name="header">Service</f:facet>
+	             #{info.nomService}
+	            </rich:column>
+	            
+	             <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			         </f:facet>
+	         </rich:dataTable>
+	         </h:panelGrid>
+	           
+	         
+	         </h:panelGrid>
+	         
+	         <h:graphicImage value="/images/flecheBas40.png" style="margin-left:20%"/>
+	         
+	         
+	         <h:panelGrid columns="3">
+	         
+	         <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+	            <rich:dataTable value="#{recherche.listInfoHospitalise}" var="hosp" id="affichage3" rows="3">
+	               <f:facet name="header">Informations sur l'hospitalisation</f:facet>
+	               
+	               <rich:column style="background-color:rgba(242,185,11,0.4)">
+	                 <f:facet name="header">Hospitalisé par:</f:facet>
+	                 <h:outputText value="#{hosp.nomMed}" style="color:blue"/>
+	               </rich:column>
+	               
+	               <rich:column>
+	                 <f:facet name="header">Nom</f:facet>
+	                 #{hosp.nom}
+	               </rich:column>
+	               
+	               <rich:column>
+	                 <f:facet name="header">Prenom</f:facet>
+	                  #{hosp.prenom}
+	               </rich:column>
+	               
+	               <rich:column>
+	                  <f:facet name="header">Chambre</f:facet>
+	                  #{hosp.codeChambre}
+	               </rich:column>
+	               
+	               <rich:column>
+	                  <f:facet name="header">Date d'arrivée</f:facet>
+	                  #{hosp.dateArrive}
+	               </rich:column>
+	               
+	               <rich:column>
+	                  <f:facet name="header">Motif</f:facet>
+	                  #{hosp.motif}
+	               </rich:column>
+	               
+	               <rich:column style="background-color:rgba(242,185,11,0.4)">
+	                  <f:facet name="header">Etat à l'arrivée</f:facet>
+	                  #{hosp.etat}
+	               </rich:column>
+	               <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                 <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			         </f:facet>
+	            </rich:dataTable>
+	         </h:panelGrid>
+	          <h:graphicImage value="/images/flecheDroit40.png" />
+	          
+	          <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+	               <rich:dataTable value="#{recherche.listInfoSortie}" var="sortie" id="affichage4" rows="3">
+	                  <f:facet name="header">Informations sur la sortie</f:facet>
+	                  
+	                  <rich:column style="background-color:rgba(242,185,11,0.4)">
+	                     <f:facet name="header">Sortie par:</f:facet>
+	                     <h:outputText value="#{sortie.nomMed}" style="color:blue" />
+	                  </rich:column>
+	                  
+	                  <rich:column>
+	                    <f:facet name="header">Nom</f:facet>
+	                    #{sortie.nom}
+	                  </rich:column>
+	                  
+	                  <rich:column>
+	                    <f:facet name="header">Prenom</f:facet>
+	                    #{sortie.prenom}
+	                  </rich:column>
+	                  
+	                  <rich:column>
+	                    <f:facet name="header">Chambre</f:facet>
+	                    #{sortie.codeChambre}
+	                  </rich:column>
+	                  
+	                  <rich:column>
+	                    <f:facet name="header">Période d'hospitalisation </f:facet>
+	                    
+	                    <h:panelGrid columns="4">
+	                       <h:outputText value="Du" />
+	                       <h:outputText value="#{sortie.dateArrive}" />
+	                       <h:outputText value="Au" />
+	                       <h:outputText value="#{sortie.dateSortie}" />
+	                    </h:panelGrid>
+	                  </rich:column>
+	                  
+	                  <rich:column style="background-color:rgba(242,185,11,0.4)">
+	                    <f:facet name="header">Etat à la sortie</f:facet>
+	                     #{sortie.etat}
+	                  </rich:column>
+	                  
+	                  <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                 <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			         </f:facet>
+	               </rich:dataTable>
+	          </h:panelGrid>
+	         </h:panelGrid>
+	      </rich:panel>
+        
+    
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+ 
+    
+    
+       <a4j:keepAlive beanName="service" />   
+          
+          <h:panelGrid columns="2" style="margin-left:0%;">
+               
+               <h:panelGrid style="border-right:5px solid #a2a5a9;">
+			       <rich:panel>
+			        
+			         <f:facet name="header">Liste des services</f:facet>
+			          <rich:dataTable value="#{service.listDesService}" var="serValue" id="tableService" rows="15">
+			            <rich:column>
+			              <f:facet name="header">Nom du service</f:facet>
+			               #{serValue.nomService}
+			            </rich:column>
+			            
+			            <rich:column>
+			             <f:facet name="header">Actions</f:facet>
+			             <a4j:commandLink oncomplete="#{rich:component('modifierService')}.show()" value="Modifier" style="text-decoration:none;color:blue">
+			                <f:setPropertyActionListener value="#{serValue}" target="#{service.selected}" />
+			             </a4j:commandLink>
+			             
+			            </rich:column>
+			          
+			          </rich:dataTable>
+			       
+			       </rich:panel>
+			     
+			     </h:panelGrid>
+			     
+			     <h:panelGrid  style="margin-left:5%;border-left:5px solid #a2a5a9;">
+			       <rich:panel>
+			          <f:facet name="header">Liste des medecins dans les services</f:facet>
+			          
+			          <h:panelGrid columns="3">
+			           
+					           <h:outputText value="Filtrer:" />
+					           <h:inputText value="#{service.searchValue}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px;cursor:pointer">
+					              <a4j:support event="onkeyup" action="#{service.backListMedecin}" reRender="listMedecin,vueMed"/>
+					           </h:inputText>
+					           <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="vueMed">
+		                          <h:outputText value="#{service.searchValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+		                       </h:panelGrid>
+		                       
+			          </h:panelGrid>
+			          <rich:dataTable value="#{service.listMedService}" var="med" id="listMedecin" rows="3">
+			            <rich:column>
+			              <f:facet name="header">Code du medecin</f:facet>
+			              #{med.codePerso}
+			            </rich:column>
+			            <rich:column>
+			              <f:facet name="header">Nom</f:facet>
+			              #{med.nom}
+			            </rich:column>
+			            
+			            <rich:column>
+			              <f:facet name="header">Prenom</f:facet>
+			              #{med.prenom}
+			            </rich:column>
+			            
+			            <rich:column>
+			            	<f:facet name="header">Nom d'utilisateur</f:facet>
+			            	#{med.userName}
+			            </rich:column>
+			            
+			            <rich:column>
+			              <f:facet name="header">Service</f:facet>
+			              #{med.nomService}
+			            </rich:column>
+			            
+			            <rich:column>
+			               <f:facet name="header">Categorie</f:facet>
+			               #{med.categorie}
+			            </rich:column>
+			            <rich:column>
+			              <f:facet name="header">Date d'affectation</f:facet>
+			              #{med.dateAffectMed}
+			            </rich:column>
+			            
+			            <f:facet name="footer">
+		              <rich:datascroller selectedStyle="font-weight:bold">
+		             <f:facet name="first">
+		                    <h:outputText value="Premier"/>
+		              </f:facet>
+		              <f:facet name="first_disabled">
+		                   <h:outputText value="Premier"/>
+		               </f:facet>
+		              <f:facet name="last">
+		                   <h:outputText value="Dernier"/>
+		               </f:facet>
+		              <f:facet name="last_disabled">
+		                   <h:outputText value="Dernier"/>
+		              </f:facet>
+		               <f:facet name="next">
+		                   <h:outputText value="Suivant"/>
+		               </f:facet>
+		               <f:facet name="next_disabled">
+		                 <h:outputText value="Suivant"/>
+		                </f:facet>
+		               <f:facet name="previous">
+		                    <h:outputText value="Prec"/>
+		              </f:facet>
+		             <f:facet name="previous_disabled">
+		                    <h:outputText value="Prec"/>
+		             </f:facet>
+           
+                        
+                  </rich:datascroller>
+              
+                 </f:facet>
+			          </rich:dataTable>
+			       </rich:panel>
+			    
+			    <h:panelGrid style="border-top:5px solid #a2a5a9;padding-top:2px">
+			    
+			       <rich:panel >
+			        <f:facet name="header">Liste des infirmiers dans les services</f:facet>
+			        <h:panelGrid columns="3">
+			           
+					           <h:outputText value="Filtrer:" />
+					           <h:inputText value="#{service.valueSearch}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px;cursor:pointer">
+					              <a4j:support event="onkeyup" action="#{service.backListInfirmier}" reRender="tabInfirmier,vueIn"/>
+					           </h:inputText>
+					           <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="vueIn">
+		                          <h:outputText value="#{service.valueSearch}" style="color:blue;font-family:gautami;font-size:20px;"/>
+		                       </h:panelGrid>
+		                       
+			          </h:panelGrid>
+			        <rich:dataTable value="#{service.listInfService}" var="infir" id="tabInfirmier" rows="3">
+			              <rich:column>
+					          <f:facet name="header">Code de l'infirmier</f:facet>
+					          #{infir.codePerso}
+					      </rich:column>
+					      
+					      <rich:column>
+					        <f:facet name="header">Nom</f:facet>
+					        #{infir.nom}
+					      </rich:column>
+					     
+					     <rich:column>
+					        <f:facet name="header">Prénom</f:facet>
+					        #{infir.prenom}
+					      </rich:column>
+					     
+					      <rich:column>
+			            	<f:facet name="header">Nom d'utilisateur</f:facet>
+			            	#{infir.userName}
+			            </rich:column>
+			            
+					      <rich:column>
+					        <f:facet name="header">Service</f:facet>
+					        #{infir.nomService}
+					      </rich:column>
+					      
+					      <rich:column>
+					        <f:facet name="header">Date d'affectation</f:facet>
+					        #{infir.dateAffectInf}
+					      </rich:column>
+					      
+					      <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+              
+                     </f:facet>
+			        </rich:dataTable>
+			       </rich:panel>
+			    
+			    </h:panelGrid> 
+			     </h:panelGrid>  
+			     
+         </h:panelGrid>
+  </html>

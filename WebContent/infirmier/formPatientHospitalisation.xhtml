@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+           
+       <h:form >
+           <a4j:keepAlive beanName="hospitalisation" />
+	
+				<rich:panel>
+	<a4j:region>
+			<h:panelGrid columns="1" id="message" >
+			<h:outputText value="#{hospitalisation.message}" style="font-family:gautami;color:red;font-size:14px"/>
+			</h:panelGrid>
+			<h:panelGrid columns="3" id="formulaire">
+					
+				<h:outputText value="Code:" /><h:inputText id="codeP" value="#{hospitalisation.code}"  />
+					<rich:suggestionbox height="300" width="400" var="patHosp" fetchValue="#{patHosp.code}" suggestionAction="#{hospitalisation.suggestPatHosp}" for="codeP" nothingLabel="Pas de suggestions">
+							<rich:column>
+								#{patHosp.code}
+							</rich:column>
+							
+							<rich:column>
+								#{patHosp.nom}
+							</rich:column>
+							
+							<rich:column>
+								#{patHosp.prenom}
+							</rich:column>
+							
+						<!--<rich:column>
+								#{patHosp.dateNaissance}
+							</rich:column>-->
+				<a4j:support event="onselect" action="#{hospitalisation.selectedPatient}" reRender="Form">
+					<f:setPropertyActionListener value="#{patHosp}" target="#{hospitalisation.selected}" />
+				</a4j:support>
+					</rich:suggestionbox>
+				</h:panelGrid>
+				<h:panelGrid columns="3" id="Form">
+					<h:inputHidden value="#{hospitalisation.idFiche}" />
+					
+				<h:outputText value="Nom:" /><h:inputText value="#{hospitalisation.nom}" readonly="true"/><br/>
+				<h:outputText value="Prénom:" /><h:inputText value="#{hospitalisation.prenom}" readonly="true"/><br/>
+				<h:outputText value="Date de naissance:" /><h:inputText value="#{hospitalisation.dateNaissance}" readonly="true"/><br/>
+				<h:outputText value="Motif:" /><h:inputText value="#{hospitalisation.motifHosp}" readonly="true"/><br/>
+				<h:outputText value="Chambre:" /><h:inputText value="#{hospitalisation.codeChambre}" readonly="true"/><br/>
+				<h:outputText value="Date d'arrivée:" /><h:inputText value="#{hospitalisation.dateArrive}" readonly="true"/><br/>
+				<h:outputText value="Etat:" /><h:inputText value="" /><br/>
+				 </h:panelGrid>
+				 <h:panelGrid columns="3" id="presta">
+				<h:outputText value="Prestation:" /><h:inputText id="prest" value="#{hospitalisation.nomPresta}" />
+					<rich:suggestionbox height="300" width="400"  suggestionAction="#{hospitalisation.suggestionPrestation}" nothingLabel="Pas de suggestions" for="prest" var="prestation">
+			              <rich:column>
+			              #{prestation.nomCatPresta}
+			              </rich:column>
+			              
+			              <rich:column>
+			              #{prestation.nomPresta}
+			              </rich:column>
+			           
+			           
+			              <a4j:support event="onselect" action="#{hospitalisation.prestationSelected}" reRender="presta">
+			              
+			              <f:setPropertyActionListener value="#{prestation}" target="#{hospitalisation.selected}" />
+			              </a4j:support>
+			           </rich:suggestionbox>
+			        </h:panelGrid>
+				<h:panelGrid columns="2" id="form2">   
+				<h:outputText value="Temperature:" /><h:inputText value="#{hospitalisation.temperature}" />
+				<h:outputText value="Tension arterielle:" /><h:inputText value="#{hospitalisation.tensionArt}" />
+				
+				<h:outputText value="Frequence cardiaque:" /><h:inputText value="#{hospitalisation.frequenceCard}" />
+				<h:outputText value="Frequence respiratoire:" /><h:inputText value="#{hospitalisation.frequenceResp}" />
+			</h:panelGrid> 
+			<h:panelGrid columns="3"> 
+				<h:outputText value="Visite médicale:" /> 
+					<h:selectOneMenu value="#{hospitalisation.idVisite}">
+						<f:selectItem itemLabel="Selectionner ici:" itemvalue=""/>
+						<f:selectItems value="#{hospitalisation.listPrestaVisite}"/>
+					</h:selectOneMenu>
+				<!--<h:selectOneRadio value="#{hospitalisation.visiteMedGen}">
+				<f:selectItem itemLabel="Oui" itemValue="Oui"/>
+				<f:selectItem itemLabel="Non" itemValue="Non"/>
+				</h:selectOneRadio>
+				<h:outputText value="Visite medecin Specialiste:" /> 
+				<h:selectOneRadio value="#{hospitalisation.visiteMedSpec}">
+					<f:selectItem itemLabel="Oui" itemValue="Oui"/>
+					<f:selectItem itemLabel="Non" itemValue="Non"/>
+				</h:selectOneRadio>-->	
+				<br/>
+				<h:outputText value="Diurèse:" /> <h:inputText value="#{hospitalisation.diurese}" />		
+					
+			</h:panelGrid>
+	</a4j:region>
+		<h:panelGrid>
+			               <a4j:commandButton action="#{hospitalisation.enregistreHosp}" value="Valider" data="#{hospitalisation.message}" reRender="message, Form, form2, presta" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			             </h:panelGrid>
+				</rich:panel>
+  	</h:form>
+</html>

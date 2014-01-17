@@ -1,0 +1,109 @@
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+  
+  
+     
+     
+   
+       <rich:panel>
+              <rich:dataTable value="#{rendez.listPatientToday}" var="rendezValue" id="listeRendez" rows="10">
+                 <f:facet name="header">Liste des rendez-vous</f:facet>
+              
+              <rich:column>
+              <f:facet name="header">Code du patient</f:facet>
+              #{rendezValue.codePerso}
+              </rich:column>
+              <rich:column>
+              <f:facet name="header">Nom du patient</f:facet>
+              
+              #{rendezValue.nom}
+              </rich:column>
+              <rich:column>
+              <f:facet name="header">Prenom du patient</f:facet>
+              #{rendezValue.prenom}
+              </rich:column>
+              <rich:column style="background-color:rgba(242,185,11,0.4)">
+              <f:facet name="header">Date du rendez-vous</f:facet>
+              #{rendezValue.dateRendezVs}
+              </rich:column>
+              <rich:column style="background-color:rgba(242,185,11,0.4)">
+              <f:facet name="header">Service</f:facet>
+              #{rendezValue.nomService}
+              </rich:column>
+              <rich:column>
+              <f:facet name="header">Date d'attribution</f:facet>
+              #{rendezValue.dateAttribution}
+              </rich:column>
+              
+              <rich:column>
+              <f:facet name="header">Actions</f:facet>
+              <h:panelGrid columns="2">
+              
+              <h:panelGrid columns="2" style="cursor:pointer">
+               <h:graphicImage value="/images/updateBtn.png" />
+              <a4j:commandLink  value="Modifier"  oncomplete="#{rich:component('modifierRendez')}.show()" style="text-decoration:none;color:blue">
+              <f:setPropertyActionListener value="#{rendezValue}" target="#{rendez.selected}" />
+              </a4j:commandLink>
+              
+              </h:panelGrid>
+              
+              <h:panelGrid columns="2" style="cursor:pointer">
+               <h:graphicImage value="/images/close.png" />
+              <a4j:commandLink  value="Annuler" oncomplete="#{rich:component('annulerRendez')}.show()" style="text-decoration:none;color:blue">
+               
+               <f:setPropertyActionListener value="#{rendezValue}" target="#{rendez.selected}" />
+              </a4j:commandLink>
+              </h:panelGrid>
+              </h:panelGrid>
+             
+              </rich:column>
+              
+             
+            
+               <f:facet name="footer">
+                 <rich:datascroller selectedStyle="font-weight:bold">
+             <f:facet name="first">
+                    <h:outputText value="Premier"/>
+              </f:facet>
+              <f:facet name="first_disabled">
+                   <h:outputText value="Premier"/>
+               </f:facet>
+              <f:facet name="last">
+                   <h:outputText value="Dernier"/>
+               </f:facet>
+              <f:facet name="last_disabled">
+                   <h:outputText value="Dernier"/>
+              </f:facet>
+               <f:facet name="next">
+                   <h:outputText value="Suivant"/>
+               </f:facet>
+               <f:facet name="next_disabled">
+                 <h:outputText value="Suivant"/>
+                </f:facet>
+               <f:facet name="previous">
+                    <h:outputText value="Prec"/>
+              </f:facet>
+             <f:facet name="previous_disabled">
+                    <h:outputText value="Prec"/>
+             </f:facet>
+           
+                        
+             </rich:datascroller>
+              </f:facet>
+              </rich:dataTable>
+              
+              </rich:panel>
+    
+    
+ 
+</html>

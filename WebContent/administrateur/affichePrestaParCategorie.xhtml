@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+ <h:form>
+ 		<a4j:keepAlive beanName="prestation" />
+ 			
+ 	<!--<f:facet name="header"><h:outputText value="#{prestation.selected.nomCatPresta}" /></f:facet>  -->
+ 			<rich:dataTable value="#{prestation.listPrestaCateg}" var="prestaCat" rows="10">
+ 				<rich:column>
+ 					<f:facet name="header">Prestation</f:facet>
+ 						#{prestaCat.nomPresta}
+ 				</rich:column>
+ 				
+ 				<rich:column>
+ 					<f:facet name="header">Prix</f:facet>
+ 						#{prestaCat.prix}
+ 				</rich:column>
+ 				
+ 				<rich:column>
+ 						<f:facet name="header">Action</f:facet>
+ 					<a4j:commandLink value="Modifier" oncomplete="#{rich:component('modifPrestation')}.show();">
+ 						<f:setPropertyActionListener value="#{prestaCat}" target="#{prestation.selected}" />
+ 					</a4j:commandLink>
+ 				</rich:column>
+ 					
+ 					<f:facet name="footer">
+							<rich:datascroller selectedStyle="font-weight:bold">
+								<f:facet name="first">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="first_disabled">
+								<h:outputText value="Première"/>
+								</f:facet>
+								<f:facet name="last">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+								<f:facet name="last_disabled">
+								<h:outputText value="Dernière"/>
+								</f:facet>
+							<f:facet name="next">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="next_disabled">
+								<h:outputText value="Suivante"/>
+								</f:facet>
+								<f:facet name="previous">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<f:facet name="previous_disabled">
+								<h:outputText value="Précedente"/>
+								</f:facet>
+								<!--<f:facet name="fastforward">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastforward_disabled">
+								<h:outputText value="FF"/>
+								</f:facet>
+								<f:facet name="fastrewind">
+								<h:outputText value="FR"/>
+								</f:facet>
+								<f:facet name="fastrewind_disabled">
+								<h:outputText value="FR"/>
+								</f:facet>-->
+							</rich:datascroller>
+						</f:facet>
+ 		</rich:dataTable>
+ </h:form> 
+ 
+ 				<rich:modalPanel id="modifPrestation" width="390" height="200">
+  				<f:facet name="header">Modification d'une Prestation</f:facet>
+  						<f:facet name="controls">
+  							<h:graphicImage value="/images/close.png" onclick="#{rich:component('modifPrestation')}.hide();" />
+  						</f:facet>				
+  				<a4j:include viewId="/administrateur/formModifPrestation.xhtml"/>
+  			</rich:modalPanel>
+</html>

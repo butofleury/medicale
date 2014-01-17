@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+
+    <h:form>
+       
+       <rich:scrollableDataTable
+				height="400px" width="700px" rows="30"
+				value="#{test.allCars}" var="category">
+				<rich:column id="make">
+				<f:facet name="header">Make</f:facet>
+				<h:outputText value="#{category.make}" />
+				</rich:column>
+				<rich:column id="model">
+				<f:facet name="header">Model</f:facet>
+				<h:outputText value="#{category.model}" />
+				</rich:column>
+				<rich:column id="price">
+				<f:facet name="header">Price</f:facet>
+				<h:outputText value="#{category.price}" />
+				</rich:column>
+				<rich:column id="mileage">
+				<f:facet name="header">Mileage</f:facet>
+				<h:outputText value="#{category.mileage}" />
+				</rich:column>
+				<rich:column id="vin">
+				<f:facet name="header">VIN</f:facet>
+				<h:outputText value="#{category.vin}" />
+				</rich:column>
+				<rich:column id="stock">
+				<f:facet name="header">Stock</f:facet>
+				<h:outputText value="#{category.stock}" />
+				</rich:column>
+	</rich:scrollableDataTable>
+	
+	     
+	     <rich:panel>
+	       
+	       
+	               <h:panelGrid columns="3">
+	              <h:outputText value="Patient:" />
+	              
+	              <h:inputText value="#{test.rechercheValue}" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;width:200px">
+	                  <a4j:support event="onkeyup" action="#{test.backPatientSortie}" reRender="infoSortie,show"/>
+	              </h:inputText>
+	              
+	              <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;" id="show">
+	               <h:outputText value="#{test.rechercheValue}" style="color:blue;font-family:gautami;font-size:20px;"/>
+	             </h:panelGrid>
+    
+                     </h:panelGrid>
+				    <rich:scrollableDataTable value="#{test.listPatientDecisionSortie}" var="decision" id="infoSortie">
+				         
+				         <rich:column>
+					                 <f:facet name="header">Code du patient</f:facet>
+					                  #{decision.codePerso}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Nom</f:facet>
+					                 #{decision.nom}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Prenom</f:facet>
+					                 #{decision.prenom}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Date du rendez</f:facet>
+					                 #{decision.dateRendezVous}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Service</f:facet>
+					                 #{decision.nomService}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Motif</f:facet>
+					                #{decision.motif}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Etat</f:facet>
+					                #{decision.etat}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Date de consultation</f:facet>
+					                #{decision.dateConsultation}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Date d'arrivée</f:facet>
+					                 #{decision.dateArrive}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Traitement</f:facet>
+					                #{decision.traitement}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Observation</f:facet>
+					                #{decision.observation}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Témperature</f:facet>
+					                #{decision.temperature}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Tension Arterielle</f:facet>
+					                #{decision.TA}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Frequence Cardiaque</f:facet>
+					                #{decision.FC}
+					              </rich:column>
+					              <rich:column>
+					                <f:facet name="header">Frequence Respiratoire</f:facet>
+					                #{decision.FR}
+					              </rich:column>
+					              
+					              <rich:column>
+					                <f:facet name="header">Actions</f:facet>
+					                <h:panelGrid columns="2" style="cursor:pointer">
+					                              <h:graphicImage value="/images/updateBtn.png" />
+					                              <a4j:commandLink  value="Selectionner"  oncomplete="#{rich:component('suivantSortiePatient')}.show()" style="text-decoration:none;color:blue">
+					                                   <f:setPropertyActionListener value="#{decision}" target="#{verification.selected}" />
+					                              </a4j:commandLink>
+					              
+					                </h:panelGrid>
+					              </rich:column>
+				    
+				    </rich:scrollableDataTable>
+		
+		   </rich:panel>
+    
+    </h:form>
+</html>

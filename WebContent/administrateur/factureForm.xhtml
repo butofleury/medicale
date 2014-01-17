@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+    
+   
+    				<h:panelGrid columns="">
+    					<rich:tabPanel>
+    						<rich:tab label="Ambulant">
+    							 <h:panelGrid>
+              	
+		       <ui:include src="/receptionniste/facture.xhtml"/>
+		      
+		      </h:panelGrid>
+    						</rich:tab>
+    						<rich:tab label="Hospitalisé">
+    			 <h:panelGrid rendered="#{facture.ambulant}">
+                		<rich:panel>
+							<f:facet name="header">Liste des patients déshospitalisées</f:facet>
+					
+						
+			<rich:dataTable value="#{facture.listHospSortie}" var="sortie">
+  			<rich:column>
+  				<f:facet name="header">Code</f:facet>
+  					#{sortie.codePerso}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Nom</f:facet>
+  					#{sortie.nom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Prénom</f:facet>
+  					#{sortie.prenom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Sexe</f:facet>
+  					#{sortie.sexe}
+  			</rich:column>
+  			  			
+  			<rich:column>
+  				<f:facet name="header">Chambre</f:facet>
+  					#{sortie.codeChambre}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date d'arrivée</f:facet>
+  					#{sortie.dateHosp}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date de sortie</f:facet>
+  					#{sortie.dateSortie}
+  			</rich:column>
+  			
+  			
+  			
+  			<rich:column>
+ 					<f:facet name="header">Facture</f:facet>
+ 				 	
+  		<h:commandLink action="#{facture.test}" value="facture">
+  			<f:setPropertyActionListener value="#{sortie}" target="#{facture}" />
+  		</h:commandLink>
+  			</rich:column>
+  		</rich:dataTable>
+					</rich:panel>
+                  
+                 
+                 
+              </h:panelGrid>				
+    						</rich:tab>
+    	
+    				
+    			<rich:tab label="Paiement">
+   <h:panelGrid columns="2" id="messageF">
+	    <h:graphicImage value="/images/infoReturn.png" rendered="#{facture.errorPaye}"/>
+	    <h:outputText  value="#{facture.messagePaye}" style="color:red;font-family:gautami;font-size:20px;"/>
+ </h:panelGrid>
+<a4j:jsFunction name="payePrestation" action="#{facture.payeConsultation}" reRender="affichageDetail, affichage, messageF"></a4j:jsFunction>
+    					<rich:panel>
+    						<h:panelGrid columns="2">
+    							<h:outputText value="Patient:" /> 
+    							<h:inputText value="#{facture.searchFact}" >
+    						<a4j:support event="onkeyup" action="#{facture.backInfoFact}" reRender="affichage, affichageDetail"/>
+    							</h:inputText> 
+    						</h:panelGrid>
+    				
+    				<h:panelGrid columns="2">
+    					<rich:dataTable value="#{facture.listConsultNonPaye}" id="affichage" var="factured">
+    						<f:facet name="header">Consultation non payé</f:facet>
+    				<rich:column>
+    					<f:facet name="header">Code</f:facet>
+    						#{factured.codePerso}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Nom</f:facet>
+    						#{factured.nom}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Prénom</f:facet>
+    						#{factured.prenom}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Consultation</f:facet>
+    						#{factured.nomPresta}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Prix</f:facet>
+    						#{factured.prix}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Paiement</f:facet>
+    		<a4j:commandLink value="Payer" oncomplete="#{rich:component('paiementFacture')}.show();" reRender="affichageDetail, affichage">
+    			<f:setPropertyActionListener value="#{factured}" target="#{facture.selected}" />
+    		</a4j:commandLink>
+    				</rich:column>
+    					</rich:dataTable>
+    					
+    					<rich:dataTable value="#{facture.listDetailNonPaye}" id="affichageDetail" var="factured">
+    						<f:facet name="header">Autres prestations non payées</f:facet>
+    				<rich:column>
+    					<f:facet name="header">Code</f:facet>
+    						#{factured.codePerso}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Nom</f:facet>
+    						#{factured.nom}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Prénom</f:facet>
+    						#{factured.prenom}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Consultation</f:facet>
+    						#{factured.nomPresta}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Prix</f:facet>
+    						#{factured.prix}
+    				</rich:column>
+    				
+    				<rich:column>
+    					<f:facet name="header">Paiement</f:facet>
+    		<a4j:commandLink value="Payer" oncomplete="#{rich:component('paiementFacture')}.show();" reRender="affichageDetail">
+    			<f:setPropertyActionListener value="#{factured}" target="#{facture.selected}" />
+    		</a4j:commandLink>
+    				</rich:column>
+    					</rich:dataTable>
+    				</h:panelGrid>
+    					</rich:panel>
+    				
+    			</rich:tab>
+    					</rich:tabPanel>
+    				</h:panelGrid>
+   
+    
+   
+</html>

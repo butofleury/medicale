@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+    
+    <h:panelGrid>
+              <h:panelGrid columns="2">
+               <h:outputText value="Choisissez" style="color:blue;font-family:gautami"/>
+               <h:selectOneRadio value="#{facture}" valueChangeListener="#{facture}" reRender="main-facture">
+                  <f:selectItem itemLabel="Ambulant" itemValue="ambulant" style="color:blue;font-family:gautami"/>
+                   <f:selectItem itemLabel="Hospitalisé" itemValue="hospitalise" style="color:blue;font-family:gautami"/>
+                   <a4j:support event="onchange"/>
+               </h:selectOneRadio>
+              </h:panelGrid>
+              
+              <a4j:outputPanel id="main-facture">
+              
+              <h:panelGrid rendered="#{facture.hospitalise}">
+              
+		      <rich:panel>
+							<f:facet name="header">Liste des patients hospitalisées</f:facet>
+					
+						
+			<rich:dataTable value="#{facture.listHospSortie}" var="sortie">
+  			<rich:column>
+  				<f:facet name="header">Code</f:facet>
+  					#{sortie.codePerso}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Nom</f:facet>
+  					#{sortie.nom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Prénom</f:facet>
+  					#{sortie.prenom}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Sexe</f:facet>
+  					#{sortie.sexe}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date d'arrivée</f:facet>
+  					#{sortie.dateHosp}
+  			</rich:column>
+  			
+  			<rich:column>
+  				<f:facet name="header">Date de sortie</f:facet>
+  					#{sortie.dateSortie}
+  			</rich:column>
+  			
+  			<rich:column>
+ 					<f:facet name="header">Facture</f:facet>
+ 				<a4j:commandLink oncomplete="#{rich:component('sommePayer')}.show();" action="#{facture.sommeAPayer}" value="Somme à payer" >
+ 					 <f:setPropertyActionListener value="#{sortie}" target="#{facture}" reRender="sommeL" />
+ 				</a4j:commandLink>
+ 				<br/>
+  		
+  			</rich:column>
+  		</rich:dataTable>
+					</rich:panel>
+		      
+		      </h:panelGrid>
+		      
+              <h:panelGrid rendered="#{facture.ambulant}">
+                
+                  
+                  <ui:include src="/receptionniste/facture.xhtml"/>
+                 
+              </h:panelGrid>
+          </a4j:outputPanel>
+    </h:panelGrid>
+    
+</html>

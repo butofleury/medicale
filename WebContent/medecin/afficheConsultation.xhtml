@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+ 
+     
+    
+      
+       
+    <h:panelGrid columns=""> 
+    
+                    
+     
+       <rich:tabPanel switchType="ajax" headerAlignment="left">
+       
+       
+       
+            <f:facet name="header">Liste des patients</f:facet>
+         <rich:tab label="Patients consultés">
+         
+                     
+			           <rich:dataTable value="#{consultation.listConsulte}" var="consulte" rows="6" id="affiche">
+			         <f:facet name="header">Liste des patients consultes</f:facet>
+			           <rich:column>
+			           <f:facet name="header">Code du patient</f:facet>
+			           #{consulte.codePerso}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Nom</f:facet>
+			            #{consulte.nom}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Prenom</f:facet>
+			            #{consulte.prenom}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Date de consultation</f:facet>
+			            #{consulte.dateConsultation}
+			           </rich:column>
+			           
+			           
+			           
+			           <rich:column>
+			           <f:facet name="header">Observation</f:facet>
+			            #{consulte.observation}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Traitement</f:facet>
+			            #{consulte.traitement}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Prestation </f:facet>
+			           <h:panelGrid columns="2">
+			           
+			           <h:panelGrid style="border-right:2px solid #a2a5a9;">
+			           
+					            <f:facet name="header">Categorie</f:facet>
+					            #{consulte.nomCatPresta}
+			           
+			           </h:panelGrid>
+			           
+			           <h:panelGrid>
+					            <f:facet name="header">Nom</f:facet>
+					            #{consulte.nomPresta}
+					            
+			            </h:panelGrid>
+			           </h:panelGrid>
+			           </rich:column>
+			         
+			          
+			           
+			           
+			            <rich:column>
+			              <f:facet name="header">Actions</f:facet>
+			              <h:panelGrid columns="2" style="cursor:pointer">
+			              <h:graphicImage value="/images/updateBtn.png" />
+			              <a4j:commandLink oncomplete="#{rich:component('modifierConsultation')}.show()" value="Modifier" style="text-decoration:none;color:blue" >
+			              
+			              <f:setPropertyActionListener value="#{consulte}" target="#{consultation.selected}" />
+			              
+			              </a4j:commandLink>
+			              </h:panelGrid>
+			           </rich:column>
+			              
+			           <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			              </f:facet>
+			           
+			           
+			          
+			         </rich:dataTable>
+         </rich:tab>
+         
+         <rich:tab label="Patients hospitalisés">
+                        <rich:dataTable value="#{consultation.listHospitalise}" var="hospitalise" rows="6" id="afficheHospitalise">
+			         <f:facet name="header">Liste des patients consultes</f:facet>
+			           <rich:column>
+			           <f:facet name="header">Code du patient</f:facet>
+			           #{hospitalise.codePerso}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Nom</f:facet>
+			            #{hospitalise.nom}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Prenom</f:facet>
+			            #{hospitalise.prenom}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Date de consultation</f:facet>
+			            #{hospitalise.dateConsultation}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Code de la chambre</f:facet>
+			            #{hospitalise.codeChambre}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Observation</f:facet>
+			            #{hospitalise.observation}
+			           </rich:column>
+			           
+			           <rich:column>
+			           <f:facet name="header">Traitement</f:facet>
+			            #{hospitalise.traitement}
+			           </rich:column>
+			           
+			            <rich:column>
+			           <f:facet name="header">Prestation </f:facet>
+			           <h:panelGrid columns="2">
+			           
+			           <h:panelGrid style="border-right:2px solid #a2a5a9;">
+			           
+					            <f:facet name="header">Categorie</f:facet>
+					            #{hospitalise.nomCatPresta}
+			           
+			           </h:panelGrid>
+			           
+			           <h:panelGrid>
+					            <f:facet name="header">Nom</f:facet>
+					            #{hospitalise.nomPresta}
+					            
+			            </h:panelGrid>
+			           </h:panelGrid>
+			           </rich:column>
+			         
+			           <rich:column>
+			           <f:facet name="header">Motif</f:facet>
+			            #{hospitalise.motif}
+			           </rich:column>
+			           
+			           
+			           
+			           
+			            <rich:column>
+			              <f:facet name="header">Actions</f:facet>
+			              <h:panelGrid columns="2" style="cursor:pointer">
+			              <h:graphicImage value="/images/updateBtn.png" />
+			              <a4j:commandLink oncomplete="#{rich:component('modifierHospitalisation')}.show()" value="Modifier" style="text-decoration:none;color:blue" >
+			              
+			              <f:setPropertyActionListener value="#{hospitalise}" target="#{consultation.selected}" />
+			              </a4j:commandLink>
+			              </h:panelGrid>
+			           </rich:column>
+			              
+			           <f:facet name="footer">
+			              <rich:datascroller selectedStyle="font-weight:bold">
+			             <f:facet name="first">
+			                    <h:outputText value="Premier"/>
+			              </f:facet>
+			              <f:facet name="first_disabled">
+			                   <h:outputText value="Premier"/>
+			               </f:facet>
+			              <f:facet name="last">
+			                   <h:outputText value="Dernier"/>
+			               </f:facet>
+			              <f:facet name="last_disabled">
+			                   <h:outputText value="Dernier"/>
+			              </f:facet>
+			               <f:facet name="next">
+			                   <h:outputText value="Suivant"/>
+			               </f:facet>
+			               <f:facet name="next_disabled">
+			                 <h:outputText value="Suivant"/>
+			                </f:facet>
+			               <f:facet name="previous">
+			                    <h:outputText value="Prec"/>
+			              </f:facet>
+			             <f:facet name="previous_disabled">
+			                    <h:outputText value="Prec"/>
+			             </f:facet>
+			           
+			                        
+			             </rich:datascroller>
+			              
+			              </f:facet>
+			           
+			           
+			          
+			         </rich:dataTable>
+         </rich:tab>
+       
+       </rich:tabPanel> 
+     
+                   <rich:dataTable value="#{consultation.listCompteur}" var="rendezCompteur">
+			            <f:facet name="header">Nombre de patients</f:facet>
+				            <rich:column>
+					             <h:panelGrid columns="3" style="font-size:16px">
+					                <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+						               <h:outputText value="#{rendezCompteur.compteur}" style="color:blue;"/> 
+						            </h:panelGrid>
+						               <h:outputText value="  Patient(e)s non consulté(e)s aujourd'hui le" />
+						            <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+						               <h:outputText value="#{consultation.dateNowString}" />
+						            </h:panelGrid>
+					             </h:panelGrid>
+				            </rich:column>
+			        </rich:dataTable>
+			        
+			        
+			        
+   </h:panelGrid> 
+</html>

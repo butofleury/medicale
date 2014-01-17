@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+   <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+        
+     
+    <h:form>
+    
+    
+       <rich:panel style="width:800px">
+       
+       
+          <h:panelGrid id="information">
+             <h:outputText value="#{receptionniste.message}" style="font-family:gautami;color:red;font-size:14px"/>
+          </h:panelGrid> 
+        
+            <rich:panel id="nouveau">
+            
+            
+            
+            <h:panelGrid columns="3">
+            <h:outputText value="*Nom:" style="font-size:1.1em"/>
+            <h:inputText id="nomP" value="#{receptionniste.nom}"  required="true" validatorMessage="Le nom est très court!" requiredMessage="Veuillez completer champ nom!">
+            <a4j:support event="onblur"/>
+            <f:validateLength minimum="3"/>
+            </h:inputText>
+            <rich:message for="nomP" style="color:red;font-family:gautami"></rich:message>
+            <h:outputText value="*Prenom:" style="font-size:1.1em"/><h:inputText id="prenom" value="#{receptionniste.prenom}" required="true" validatorMessage="Le prenom est très court!" requiredMessage="Veuillez completer champ prenom!">
+            <a4j:support event="onblur"/>
+            <f:validateLength minimum="3"/>
+            </h:inputText>
+             <rich:message for="prenom" style="color:red;"></rich:message>
+            <h:outputText value="*Date de naissance:" style="font-size:1.1em"/>
+            <rich:calendar value="#{receptionniste.dateNaissance}"  id="date" datePattern="yyyy-MM-dd" required="true" requiredMessage="Veuillez completer champ date de naissance!"/>
+             <rich:message for="date" style="color:red;font-family:gautami"></rich:message>
+            <h:outputText value="*Genre:" style="font-size:1.1em"/>
+            <h:selectOneRadio value="#{receptionniste.genre}" id="genre" required="true" requiredMessage="Veuillez choisir le genre!">
+            <f:selectItem itemLabel="Femme" itemValue="Feminin"/>
+            <f:selectItem itemLabel="Homme" itemValue="Masculin"/>
+            
+            </h:selectOneRadio>
+             <rich:message for="genre" style="color:red;"></rich:message>
+          
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+            
+            <h:outputText value="Telephone fixe:" style="font-size:1.1em"/><h:inputText value="#{receptionniste.telFixe}" />
+            <h:outputText value="Telephone mobile:" style="font-size:1.1em"/><h:inputText value="#{receptionniste.telMob}" />
+            <h:outputText value="Adresse:" style="font-size:1.1em"/><h:inputText value="#{receptionniste.adresse}" />
+            <h:outputText value="Email:" style="font-size:1.1em"/><h:inputText value="#{receptionniste.email}" />
+             <h:outputText value="Profession:" /><h:inputText value="#{receptionniste.profession}" />
+            </h:panelGrid>
+            
+            <h:panelGrid columns="3">
+           
+           <!-- 
+            <h:outputText value="*Code de la personne:" /><h:inputText value="#{receptionniste.codePerso}" id="codePerso" required="true" requiredMessage="Veuillez completer le code personnel!"/>
+            <rich:message for="codePerso" style="color:red;font-family:gautami"></rich:message>-->
+            </h:panelGrid>
+            
+            <h:panelGrid style="margin:auto" >
+               <a4j:commandButton action="#{receptionniste.saisiPatient}"  value="Enregistrer" reRender="affiche,information"  style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;" />
+               
+               
+            </h:panelGrid>
+          </rich:panel>
+      
+            
+      </rich:panel>          
+       
+     </h:form>     
+   
+ 
+</html>

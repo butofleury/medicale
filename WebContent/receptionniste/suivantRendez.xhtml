@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+ 
+  
+   <h:form>
+   
+         <h:panelGrid columns="2" id="information" >
+            <h:graphicImage value="/images/infoReturn.png" rendered="#{rendez.error}"/>
+             <h:outputText value="#{rendez.message}" style="font-family:gautami;color:red;font-size:14px"/>
+         </h:panelGrid> 
+    
+    
+    
+     <rich:panel  id="contenuRendez" style="width:600px;margin:auto">
+              
+          
+              
+              
+            
+            
+             
+               <h:panelGrid columns="2">
+              <h:outputText value="Choisissez un patient:" /> <h:inputText value="#{rendez.codePerso}"  id="choixPatient" />
+             
+              </h:panelGrid>
+              
+               <rich:suggestionbox width="400" height="300" fetchValue="#{patient.codePerso}"  suggestionAction="#{rendez.suggestionPatient}" var="patient" nothingLabel="Pas de suggestion" for="choixPatient">
+              <rich:column>
+              
+              #{patient.codePerso}
+              </rich:column>
+              
+              <rich:column>
+              
+              #{patient.nom}
+              </rich:column>
+              
+              <rich:column>
+              
+               #{patient.prenom}
+              </rich:column>
+              <a4j:support event="onselect" action="#{rendez.patientSelected}"  reRender="formulaire">
+              <f:setPropertyActionListener value="#{patient}" target="#{rendez.selected}" />
+              </a4j:support>
+              </rich:suggestionbox>
+              
+              
+              
+             
+               <h:panelGrid columns="2" id="formulaire">
+              
+               <h:outputText value="Nom &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:" /> 
+               <h:inputText value="#{rendez.nom}" disabled="true" style="color:blue" />
+               
+              <h:outputText value="Prenom:" /> 
+              <h:inputText value="#{rendez.prenom}" disabled="true" style="color:blue" />
+              
+              </h:panelGrid>
+              
+             
+          
+             
+              
+              <h:outputText value="Date de rendez-vous:" />
+              
+              <h:panelGrid columns="4">
+              
+              <h:selectOneRadio value="#{rendez.dateChoix}" id="choix" valueChangeListener="#{rendez.dateClicked}" reRender="main-date">
+                   <f:selectItem itemLabel="Choisissez" itemValue="choixVarie"/>
+                   <f:selectItem itemLabel="Aujourd'hui" itemValue="choixToday"/>
+                   <a4j:support event="onchange"/>
+              </h:selectOneRadio>
+              
+              </h:panelGrid>
+              
+              <a4j:outputPanel ajaxRendered="true" id="main-date">
+              <h:panelGrid columns="2" rendered="#{rendez.choixVarie}">
+              <h:outputText value="Choix varie:" />
+               
+              <rich:calendar value="#{rendez.dateRendezVs}"  id="date" datePattern="yyyy-MM-dd" />
+              <rich:message for="date" style="color:red;"></rich:message>
+              
+              </h:panelGrid>
+              
+             
+		             
+             
+                       <h:panelGrid columns="3" rendered="#{rendez.choixToday}">
+		                  <h:outputText value="Today:" />
+		                  <rich:calendar value="#{rendez.dateRendezVs}" disabled="true"  id="dateToday" datePattern="yyyy-MM-dd" />
+                         
+		              </h:panelGrid>
+              
+               </a4j:outputPanel >
+             
+              
+              <h:panelGrid columns="3">
+              
+              <h:outputText value="Service:" /> 
+              
+              <h:selectOneMenu value="#{rendez.idService}" id="service" >
+              
+                   <f:selectItems value="#{rendez.listService}"/>
+              
+              </h:selectOneMenu>
+              
+           
+              </h:panelGrid>
+              
+              <h:panelGrid columns="2" style="margin:auto">
+              <a4j:commandButton action="#{rendez.saisiRendez}" value="Enregistrer" reRender="listeRendez,information,contenuRendez" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;cursor:pointer;"/>
+              <a4j:commandButton action="#{rendez.initialiseValue}"  value="Annuler" reRender="contenuRendez,information" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;"/>
+              </h:panelGrid>
+              
+          </rich:panel>   
+           
+   </h:form>
+   
+</html>

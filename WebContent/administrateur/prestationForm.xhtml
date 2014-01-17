@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+      <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+       <rich:panel>
+       
+       <h:panelGrid columns="2">
+           <h:panelGrid columns="">
+      
+			      		
+			     <a4j:keepAlive beanName="prestation" />
+			     		
+			     	<div style="float:left">
+			      		
+			     <rich:dataTable value="#{prestation.listPrestaCat}" var="pre" rows="10">
+			     	<f:facet name="header">Listes des Categories des Prestations</f:facet>
+			     		<rich:column>
+			     			<f:facet name="header">Categorie</f:facet>
+			     				#{pre.nomCatPresta}
+			     		</rich:column>
+			     		
+			     		<rich:column>
+			     			<f:facet name="header">Afficher</f:facet>
+			     			  <h:panelGrid columns="2">
+			     			    <h:graphicImage value="/images/select.png" style="cursor:pointer"/>
+			     				<a4j:commandLink  action="#{prestation.getSelectedCatPresta}" value="Lister" oncomplete="#{rich:component('affichePrestaCat')}.show();" style="color:blue;text-decoration:none">
+			     					<f:setPropertyActionListener value="#{pre}" target="#{prestation.selected}" />
+			     				</a4j:commandLink>
+			     			  </h:panelGrid>
+			     		</rich:column>
+			     		
+			     		<f:facet name="footer">
+										<rich:datascroller selectedStyle="font-weight:bold">
+											<f:facet name="first">
+											<h:outputText value="Première"/>
+											</f:facet>
+											<f:facet name="first_disabled">
+											<h:outputText value="Première"/>
+											</f:facet>
+											<f:facet name="last">
+											<h:outputText value="Dernière"/>
+											</f:facet>
+											<f:facet name="last_disabled">
+											<h:outputText value="Dernière"/>
+											</f:facet>
+										<f:facet name="next">
+											<h:outputText value="Suivante"/>
+											</f:facet>
+											<f:facet name="next_disabled">
+											<h:outputText value="Suivante"/>
+											</f:facet>
+											<f:facet name="previous">
+											<h:outputText value="Précedente"/>
+											</f:facet>
+											<f:facet name="previous_disabled">
+											<h:outputText value="Précedente"/>
+											</f:facet>
+											<!--<f:facet name="fastforward">
+											<h:outputText value="FF"/>
+											</f:facet>
+											<f:facet name="fastforward_disabled">
+											<h:outputText value="FF"/>
+											</f:facet>
+											<f:facet name="fastrewind">
+											<h:outputText value="FR"/>
+											</f:facet>
+											<f:facet name="fastrewind_disabled">
+											<h:outputText value="FR"/>
+											</f:facet>-->
+										</rich:datascroller>
+									</f:facet>
+			     </rich:dataTable>
+			   </div>
+     	</h:panelGrid>
+     	
+     	<h:panelGrid columns="">
+		     		<div>
+		     				
+		     		<rich:dataTable value="#{administrateur.listChambre}" id="tabChambre" var="chambre" style="margin-left:auto;">
+		     			<f:facet name="header">Liste des chambres</f:facet>
+		     				<rich:column>
+		     					<f:facet name="header">Chambre</f:facet>
+		     						#{chambre.codeChambre}
+		     				</rich:column>
+		     				
+		     				<rich:column>
+		     					<f:facet name="header">Prix</f:facet>
+		     						#{chambre.prix}
+		     				</rich:column>
+		     				
+		     				<rich:column>
+		     					<f:facet name="header">Action</f:facet>
+		     					<h:panelGrid columns="2">
+		     					    <h:graphicImage value="/images/updateBtn.png" style="cursor:pointer"/>
+					     			<a4j:commandLink oncomplete="#{rich:component('modifierChambre')}.show();" value="Modifier" style="color:blue;text-decoration:none">
+					     			    <f:setPropertyActionListener value="#{chambre}" target="#{administrateur.selected}" />
+					     			</a4j:commandLink>
+					     		</h:panelGrid>
+		     				</rich:column>
+		     		</rich:dataTable>
+		     </div>
+        </h:panelGrid>
+   
+     </h:panelGrid>
+      		</rich:panel>
+</html>

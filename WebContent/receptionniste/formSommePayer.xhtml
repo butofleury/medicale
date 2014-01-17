@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+
+ 		<h:form>
+  			
+  					<a4j:keepAlive beanName="facture" />
+  				<rich:panel>
+  				<h:inputHidden value="#{facture.idFiche}" />
+  		
+  				<h:inputText value="#{facture.idFiche}" />
+  		
+  		<h:panelGrid columns="3">
+  		  		
+  					<h:outputText value="Somme totale:" /><h:outputText value="#{facture.sommeTotal}" /><br/>
+  				
+  			<h:outputText value="Entrer la somme en toute lettre:" />
+  			
+  	<h:inputTextarea value="#{facture.sommeLettre}" />
+  			
+  	
+  		
+  		<!--<h:panelGrid columns="1" id="vue" style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+  	<h:outputText value="#{facture.sommeLettre}"  style="color:blue;font-family:gautami;font-size:20px;"/>
+  	    </h:panelGrid>-->	
+  	    <br/>
+  	    	
+  			<h:commandButton action="#{facture.test}" value="Facture" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+  	
+  				
+  	<h:commandButton action="#{facture.test}" value="PDF" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>	
+  		</h:panelGrid>		
+  				</rich:panel>
+
+   		</h:form>
+</html>

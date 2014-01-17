@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  <style>
+    #survol:hover
+    {
+    text-decoration:underline;
+    }
+   </style>
+  </head>
+   
+   <body>
+  
+     
+       <div id="entete">
+                 
+                 
+                 <div id="logo">
+                 
+                 </div>
+                 
+                
+                 <div id="milieu">
+          
+                  
+		     <h:panelGrid columns="2" style="margin:auto;padding-top:50px">
+		     
+		          
+		     
+                          <h:panelGrid columns="2" style="margin:auto;padding-top:0px; width : 658px;" >
+						     <h:outputText value="Recherche:" for="selectCatUserP" style="font-family:gautami"/><h:selectOneMenu value="#{recherche.idCatPersonne}" style="width:400px;height:25px;cursor:pointer" id="selectCatUserP" valueChangeListener="#{recherche.catPersoChanged}" reRender="tabMedTrouve, tabInfTrouve, listRecTrouve, tabLabTrouve">
+				      							<f:selectItem itemValue="1" itemLabel="Medecin"/>
+				   							    <f:selectItem itemValue="2" itemLabel="Infirmier"/>
+				      							<f:selectItem itemValue="3" itemLabel="Receptionniste"/>
+				   							    <f:selectItem itemValue="4" itemLabel="Laborantin"/>
+				   				
+				   				<a4j:support event="onclick" action="#{administrateur.rechercheClicked}" reRender="main-panel"/>
+				      					  </h:selectOneMenu>
+						                
+						              </h:panelGrid>
+                      
+                
+                  
+                 
+                 </h:panelGrid>
+                 
+           
+                 </div>
+                
+                <div id="partieGauche">
+                <h:panelGrid columns="2">
+                    <a4j:outputPanel onmouseup="#{rich:component('deconnexion')}.show();" >
+		              <h:graphicImage value="/images/userPicture60.png" id="userLink"/>
+		            </a4j:outputPanel>
+		                 <h:panelGrid columns="1">
+				            <h:panelGrid columns="2">
+				                <h:outputText value="Bonjour:" style="color:black;font-style:italic;font-size:1.1em;cursor:pointer;"/>
+				       
+				                <a4j:outputPanel onmouseup="#{rich:component('deconnexion')}.show();" ><h:outputText value="#{login.nom}" id="survol" style="color:blue;font-size:1.0em;cursor:pointer;"/></a4j:outputPanel>
+				            </h:panelGrid>
+				            <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+				               <h:outputText value="#{login.nomCat}" style="font-family:gautami;color:blue;font-size:1.0em"/>
+				            </h:panelGrid>
+		                 </h:panelGrid>
+		        </h:panelGrid>
+	            </div>
+                 
+		  <rich:toolTip mode="client" followMouse="true"  for="survol">
+           <h:panelGrid style="width:200px;cursor:pointer">
+             <h:panelGrid columns="2" style="margin:auto">
+		             <h:outputText value="#{login.nom}" style="font-family:gautami;color:blue;cursor:pointer;font-size:1.2em"/>
+		             <h:outputText value="#{login.prenom}" style="font-family:gautami;color:blue;cursor:pointer;font-size:1.2em" />
+             </h:panelGrid>
+             
+            </h:panelGrid>
+            <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+                <h:outputText value="Cliquer ici pour vous deconnecter" style="font-family:gautami;color:blue;font-size:1.2em"/>
+            </h:panelGrid>
+          </rich:toolTip>        
+		  
+		 <rich:toolTip mode="client" followMouse="true"  for="userLink">
+           <h:panelGrid style="width:150px;cursor:pointer">
+             <h:panelGrid columns="2" style="margin:auto">
+		             <h:outputText value="#{login.nom}" style="font-family:gautami;color:blue;cursor:pointer;font-size:1.2em"/>
+		             <h:outputText value="#{login.prenom}" style="font-family:gautami;color:blue;cursor:pointer;font-size:1.2em" />
+             </h:panelGrid>
+             
+            </h:panelGrid>
+            <h:panelGrid style="background-color:rgba(255,255,255,1);border:2px solid #a2a5a9;border-radius:7px;">
+                <h:outputText value="Cliquer ici pour vous deconnecter" style="font-family:gautami;color:blue;font-size:1.2em"/>
+            </h:panelGrid>
+          </rich:toolTip>  
+		  
+		  
+		  <rich:toolTip mode="client" followMouse="true" for="find" >
+           <h:panelGrid style="width:290px">
+             Taper le nom , prenom ou le code du patient à rechercher
+          
+            </h:panelGrid>
+          </rich:toolTip>          
+		    
+ 
+      </div>  
+   
+        <rich:modalPanel id="deconnexion" >
+			      <h:panelGrid columns="2">
+			      <h:outputText value="#{login.userName}" style="color:blue;font-style:italic;font-size:1.1em"/>
+			      <h:outputText value="Voulez-vous vous deconnectez?" />
+			      </h:panelGrid>
+			      <h:panelGrid columns="2">
+			      <a4j:commandButton action="#{login.deconnecteUser}" value="Deconnexion" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			      <a4j:commandButton oncomplete="#{rich:component('deconnexion')}.hide();" value="Annuler" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;;cursor:pointer;"/>
+			      </h:panelGrid>
+      </rich:modalPanel>
+   
+  </body>
+</html>

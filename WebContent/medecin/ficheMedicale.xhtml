@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+         <h:form>
+          <a4j:keepAlive beanName="consultation" />   
+          
+          <h:panelGrid id="contenuFiche" style="margin:auto">
+            
+               <h:panelGrid columns="2" id="information">
+                        <h:graphicImage value="/images/infoReturn.png" rendered="#{consultation.error}"/>
+			            <h:outputText value="#{consultation.message}" style="font-family:gautami;color:red;font-size:14px"/>
+		       </h:panelGrid>  
+		       
+		                   
+			   <h:panelGrid columns="2" >
+			   
+			      <h:panelGrid style="margin-right:30%;border-right:10px solid #cccccc">
+			              <rich:panel  style="width:100%;">
+			                 
+			              
+			              <f:facet name="header">Fiche Medicale</f:facet>
+			              
+			              
+			              
+			         
+			              
+			              <h:panelGrid columns="3">
+			              
+					              <h:outputText value="Rendez-Vous de:" />
+					              <h:selectOneRadio value="#{consultation.rendezChoix}" valueChangeListener="#{consultation.rendezRadioClicked}" reRender="main-rendez,rendez,rendezVarie" >
+					                  <f:selectItem itemLabel="Aujourd'hui" itemValue="choixToday"/>
+					                  <f:selectItem itemLabel="Autre" itemValue="choixVarie"/>
+					                  <a4j:support event="onchange"  action="#{consultation.initiliseSuggestion}"/>
+					              </h:selectOneRadio>
+			               
+			               
+			              
+			              </h:panelGrid>
+			              
+			              <a4j:outputPanel ajaxRendered="true" id="main-rendez">
+			              
+			                
+			                  <h:panelGrid rendered="#{consultation.choixToday}">
+			                       
+			                              <h:panelGrid columns="2">
+					                              <h:outputText value="Patient:" />
+								                      
+								                  <h:inputText value="#{consultation.codePerso}" id="rendez" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;"/>
+								                  
+					                       </h:panelGrid>
+					                  
+					                  <a4j:region renderRegionOnly="true">
+					                  
+					                      
+					                       
+					                       <rich:suggestionbox height="300" width="400" fetchValue="#{rendez.codePerso}"  suggestionAction="#{consultation.suggestionRendez}" var="rendez" nothingLabel="Pas de suggestions" for="rendez">
+					             
+								              <rich:column>
+								              #{rendez.codePerso}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.nom}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.prenom}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.nomService}
+								              </rich:column>
+								              
+								              <a4j:support event="onselect" action="#{consultation.rendezSelected}" reRender="formulaire">
+								              
+								              <f:setPropertyActionListener value="#{rendez}" target="#{consultation.selected}" />
+								              </a4j:support>
+								              
+								           </rich:suggestionbox>
+								           
+								            <h:panelGrid columns="4" id="formulaire">
+					              
+								                   <h:outputText value="Nom:" /> 
+								                   <h:inputText value="#{consultation.nom}" disabled="true" style="color:blue"  id="nomP"/>
+								               
+								                   <h:outputText value="Prenom:" /> 
+								                   <h:inputText value="#{consultation.prenom}" disabled="true" style="color:blue"  id="prenomP"/>
+					              
+					                        </h:panelGrid>
+					                 </a4j:region>       
+					                  
+			              </h:panelGrid>
+			               
+			            
+			            
+			            
+			              <h:panelGrid rendered="#{consultation.choixVarie}">
+			                 
+			                 
+			                    <h:panelGrid columns="2">
+			                     
+					                     <h:outputText value="Patient:" />
+								                      
+								         <h:inputText value="#{consultation.codePerso}" id="rendezVarie" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;"/>
+								         
+					             </h:panelGrid>  
+					             
+			                  <a4j:region renderRegionOnly="true">
+			                
+			                      
+			                  
+			                     <rich:suggestionbox height="300" width="400" fetchValue="#{rendez.codePerso}"  suggestionAction="#{consultation.suggestionRendezOther}" var="rendez" nothingLabel="Pas de suggestions" for="rendezVarie">
+					             
+								              <rich:column>
+								              #{rendez.codePerso}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.nom}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.prenom}
+								              </rich:column>
+								              
+								              <rich:column>
+								              #{rendez.nomService}
+								              </rich:column>
+								              
+								              <a4j:support event="onselect" action="#{consultation.rendezSelected}" reRender="form">
+								              
+								              <f:setPropertyActionListener value="#{rendez}" target="#{consultation.selected}" />
+								              </a4j:support>
+								              
+								           </rich:suggestionbox>
+								           
+								            <h:panelGrid columns="4" id="form">
+					              
+								                   <h:outputText value="Nom:" /> 
+								                   <h:inputText value="#{consultation.nom}" disabled="true" style="color:blue"  id="nom"/>
+								               
+								                   <h:outputText value="Prenom:" /> 
+								                   <h:inputText value="#{consultation.prenom}" disabled="true" style="color:blue"  id="prenom"/>
+					              
+					                        </h:panelGrid>
+					                        
+					         
+					            </a4j:region>       
+					           
+			           </h:panelGrid>
+			             
+			      </a4j:outputPanel>
+			              
+			              
+			            
+			               
+			              
+			              
+			              
+			             
+			              
+			               <h:panelGrid columns="2" id="consultation">
+			               
+			               <h:outputText value="Observation:" />
+			               <h:inputTextarea value="#{consultation.observation}" id="observation" >
+			               </h:inputTextarea>
+			              
+			               
+			               <h:outputText value="Traitement:" />
+			               <h:inputTextarea value="#{consultation.traitement}" id="traitement" >
+			               </h:inputTextarea>
+			               
+			                </h:panelGrid>
+						       
+						             
+						             <h:panelGrid columns="2">
+						               <h:outputText value="Prestation:" />
+						                 <h:inputText value="#{consultation.nomPresta}" id="nomPresta" style="background-image:url('../images/brtFine.png');background-repeat:no-repeat;background-position:center right;"/>
+						             </h:panelGrid>
+						                
+						             <rich:suggestionbox height="300" width="400" fetchValue="#{prestation.nomCatPresta}" suggestionAction="#{consultation.suggestionPrestation}" nothingLabel="Pas de suggestions" for="nomPresta" var="prestation">
+						              <rich:column>
+						              #{prestation.nomCatPresta}
+						              </rich:column>
+						              
+						              <rich:column>
+						              #{prestation.nomPresta}
+						              </rich:column>
+						           
+						           
+						              <a4j:support event="onselect" action="#{consultation.prestationSelected}" reRender="prestation">
+						              
+						              <f:setPropertyActionListener value="#{prestation}" target="#{consultation.selected}" />
+						              </a4j:support>
+						           </rich:suggestionbox>
+						             
+						             
+						             <h:panelGrid columns="4" id="prestation" >
+						             
+						             <h:outputText value="Categorie:" /><h:inputText value="#{consultation.nomCatPresta}" disabled="true"  style="color:blue"/>
+						             <h:outputText value="Prestation:" /><h:inputText value="#{consultation.nomPresta}" disabled="true"  style="color:blue"/>
+						             
+						             
+						             </h:panelGrid>
+						             
+			                
+			             
+			             
+			              
+			              
+			              
+			               <a4j:region>
+			               <h:panelGrid columns="3">
+			              <h:outputText value="Decision:" />
+			              <h:selectOneRadio id="decision" value="#{consultation.decisionValue}" valueChangeListener="#{consultation.decisionClicked}" >
+					              <f:selectItem itemLabel="Non hospitalisation" itemValue="0"/>
+					              <f:selectItem itemLabel="Hospitalisation" itemValue="1"/>
+					              
+			              <a4j:support event="onchange"/>
+			              </h:selectOneRadio>
+			              </h:panelGrid>
+			               </a4j:region>
+			               
+			              
+			                <a4j:region >
+			                <a4j:outputPanel ajaxRendered="true" >
+			               <h:panelGrid columns="2" rendered="#{consultation.decision}" id="hospitalisation">
+			               
+			               <h:panelGrid columns="2">
+			               <h:outputText value="Chambre:" id="chambre"/>
+			               <h:selectOneMenu value="#{consultation.idChambre}"  >
+			               
+			               <f:selectItems value="#{consultation.listAllRooms}"/>
+			               
+			               </h:selectOneMenu>
+			               </h:panelGrid>
+			               
+			               
+			               <h:panelGrid columns="1">
+			               
+			               <h:outputText value="Motif:" />
+			               <h:inputTextarea value="#{consultation.motif}" />
+			               
+			               
+			               <h:outputText value="Etat:" />
+			               <h:inputText value="#{consultation.etat}"  />
+			               
+			               </h:panelGrid>
+			               
+			               </h:panelGrid>
+			               </a4j:outputPanel>
+			               </a4j:region>
+			               
+			               
+			               <h:panelGrid style="margin:auto">
+			                <a4j:commandButton  value="Valider" action="#{consultation.consultationReceive}"  reRender="tableConsultation,consultation,information,hospitalisation" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;cursor:pointer;"/>
+			               
+			               </h:panelGrid>
+			              
+			              </rich:panel>
+			          </h:panelGrid>  
+			            
+			            <a4j:region>
+			              <rich:panel>
+			               
+			              <f:facet name="header">Consultation</f:facet>
+			               
+			              
+					              <rich:dataTable id="tableConsultation"  width="100%"  value="#{consultation.consultationList}" var="consul">
+					              <f:facet name="header">Prescriptions</f:facet>
+					              
+							              <rich:column style="font-style:gautami;font-size:15px">
+							              <f:facet name="header">Observation</f:facet>
+							              #{consul.observation}
+							              </rich:column>
+							              <rich:column style="font-style:gautami;font-size:15px">
+							              <f:facet name="header">Traitement</f:facet>
+							              #{consul.traitement}
+							              </rich:column>
+							              <rich:column style="font-style:gautami;font-size:15px">
+							              <f:facet name="header">Soins</f:facet>
+							              #{consul.nomPresta}
+							              </rich:column>
+							              
+							              <rich:column style="font-style:gautami;font-size:15px">
+							              
+							              <f:facet name="header">Code de la chambre</f:facet>
+							              <h:panelGrid rendered="#{consultation.decision}">
+							              #{consul.codeChambre}
+							              </h:panelGrid>
+							              </rich:column>
+							              
+							              <rich:column style="font-style:gautami;font-size:15px">
+									      <f:facet name="header">Motif</f:facet>
+									      #{consul.motif}
+									      </rich:column>
+									           
+									      <rich:column style="font-style:gautami;font-size:15px">
+									      <f:facet name="header">Etat</f:facet>
+									      #{consul.etat}
+									      </rich:column>
+									           
+							              
+							            
+					              </rich:dataTable>
+			              
+			              <h:panelGrid columns="2" style="margin:auto">
+			              <a4j:commandButton value="Enregistrer" action="#{consultation.saisiConsultation}"  reRender="tableConsultation,hospitalisation,information,affiche" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;" />
+			              <a4j:commandButton action="#{consultation.initialiseValue}" value="Annuler" reRender="tableConsultation,hospitalisation,information" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;"/>
+			              </h:panelGrid>
+			            
+			              </rich:panel>
+			          </a4j:region>
+			              </h:panelGrid>
+			              
+			        <rich:toolTip mode="ajax" followMouse="true"  for="rendez">
+					      <h:panelGrid style="width:110px">
+					          Taper le nom, le prenom pour selectionner
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			         <rich:toolTip mode="ajax" followMouse="true"  for="rendezVarie">
+					      <h:panelGrid style="width:110px">
+					          Taper le nom, le prenom pour selectionner
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="nomPresta">
+					      <h:panelGrid style="width:110px">
+					          Taper la categorie ou le nom de la prestation
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			        <rich:toolTip mode="client" followMouse="true"  for="chambre">
+					      <h:panelGrid style="width:110px">
+					          Liste des chambres si c'est vide c'est que les chambres sont occupés
+					      </h:panelGrid>
+			        </rich:toolTip>
+			        
+			</h:panelGrid>               
+		</h:form>
+</html>

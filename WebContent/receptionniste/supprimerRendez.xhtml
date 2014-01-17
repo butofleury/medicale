@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+  <h:form>
+  
+   <a4j:keepAlive beanName="rendez" />
+   
+			   <rich:panel>
+			   
+			    <h:outputText value="Voulez-vous vraiment supprimer ce rendez-vous?" />
+			        <h:panelGrid columns="2">
+			            <h:graphicImage value="/images/alerte.png" />
+						    <h:panelGrid columns="2">
+						            <h:outputText value="Code du patient:" /> <h:outputText value="#{rendez.selected.codePerso}" style="color:blue"/>
+								    <h:outputText value="Nom du patient:" /><h:outputText value="#{rendez.selected.nom}" style="color:blue"/>
+								    <h:outputText value="Prenom du patient:" /> <h:outputText value="#{rendez.selected.prenom}" style="color:blue"/>
+								    <h:outputText value="Date du rendez-vous:" /> <h:outputText value="#{rendez.selected.dateRendezVs}" style="color:blue"/>
+						    
+						    </h:panelGrid>
+					</h:panelGrid>
+			         <h:panelGrid columns="2" style="margin:auto">
+			         <a4j:commandButton action="#{rendez.supprimerRendez}" value="Oui" data="#{rendez.message}" oncomplete="alert(data)" style="background-color:#7daa77;color:white;font-size:14px;border:1px solid white;border-radius:3px;cursor:pointer;" onclick="#{rich:component('annulerRendez')}.hide()" reRender="listeRendez"/>
+			         <a4j:commandButton  value="Non" oncomplete="#{rich:component('annulerRendez')}.hide()" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;cursor:pointer;"/>
+			         
+			         </h:panelGrid>
+			   </rich:panel>
+   
+  </h:form>
+</html>

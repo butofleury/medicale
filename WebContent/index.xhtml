@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  <title>Patient Software | Accueil</title>
+  <style> 
+  body
+  {
+  background-color:#cccccc;
+  }
+  
+  #haut
+  {
+  
+  width:100%;
+  height:120px;
+  background-color:#7daa77;
+   border-radius:7px;
+  }
+  #affiche
+  {
+  text-align:center;
+  color:white;
+  padding-left:10px;
+  padding-top:25px;
+  }
+  
+  
+  #cadre
+  {
+  height:400px;
+  width:300px;
+  background-color:rgba(245, 240, 227, 1);
+  margin-left:auto;
+  margin-right:200px;
+  margin-top:-20px;
+  border:1px solid #a2a5a9; 
+  border-radius:7px;
+  }
+  
+  /*La couleur original:#f8f5db*/
+  
+  #cadre:hover
+  {
+  background-color:rgba(255,255,255,1);
+ 
+  }
+  
+  
+  #interieur
+  {
+  padding-top:80px;
+  padding-left:10px;
+  }
+  
+  #pied
+  {
+  margin:auto;
+  
+  }
+ 
+  
+  </style>
+  
+  
+  </head>
+    
+  <body>
+     <h:form>
+     
+     <a4j:keepAlive beanName="login" />
+    <div id="haut">
+     
+     <h:graphicImage value="/images/logoPro.png" style="padding-left:50px"/>
+    
+     </div>
+     <div id="contour">
+     <div id="cadre">
+     
+      
+      <div id="interieur">
+      
+      <h:panelGrid id="formulaire">
+      <h:outputText value="#{login.message}" style="color:red;position:absolute;font-size:14px;font-family:gautami"/>
+      <rich:spacer height="20px"/>
+      
+      <h:panelGrid columns="3">
+      
+      <h:outputText value="Utilisateur:" style="font-family:gautami"/><rich:spacer width="17px"/><h:inputText value="#{login.userName}" id="user" required="true" requiredMessage="Mettez l'identifiant!"/> <br/>
+      <rich:spacer width="15px" /><rich:message for="user" style="color:red;font-family:gautami;font-size:14px"></rich:message>
+      
+      </h:panelGrid>
+       
+      <rich:spacer height="50px"/>
+      
+      <h:panelGrid columns="3">
+      <h:outputText value="Mot de passe:" style="font-family:gautami"/><h:inputSecret value="#{login.passWord}" id="pass" required="true" requiredMessage="Mettez le mot de passe!"/><br/>
+      <rich:spacer width="15px" /> <rich:message for="pass" style="color:red;font-family:gautami;font-size:14px"></rich:message> 
+      
+      </h:panelGrid>
+            <rich:spacer height="40px"/>
+      <h:panelGrid  id="bouton" style="margin:auto">
+      <a4j:commandButton  action="#{login.validationUser}" value="Connexion" id="boutonClic" style="background-color:#7daa77;color:white;font-size:14px;border:2px solid white;border-radius:3px;;cursor:pointer;"  reRender="formulaire"/>
+      
+      </h:panelGrid>
+      
+      </h:panelGrid>
+      </div>
+      
+     
+     </div >
+      <h:panelGrid style="margin:auto;margin-top:6%">
+      <h:outputText value=" © 2013 Patient Software - Fleury et Christian- All rights reserved" style="font-family:gautami"/>
+     
+      </h:panelGrid>
+     </div>
+    
+      
+    
+      
+     </h:form>
+  </body>
+</html>

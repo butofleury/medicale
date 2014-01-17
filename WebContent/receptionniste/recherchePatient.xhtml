@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  
+  </head>
+  
+       
+                 <h:panelGrid style="background-color:rgba(245, 240, 227, 0.6);width:400px;height:25px;margin-bottom:5%;box-shadow:0px -1px 1px #a2a5a9;border-radius:4px 4px 0px 0px;margin-left:margin-left:-10%">
+				     
+				            <h:panelGrid columns="3">
+				              <h:outputText value="Resultats de la recherche:" style="font-family:gautami"/><h:outputText value="#{receptionniste.nom}" style="color:blue;font-family:gautami"/><h:outputText value="#{receptionniste.prenom}" style="color:blue;font-family:gautami"/>
+				            </h:panelGrid>
+				    
+				     
+			    </h:panelGrid>
+				    <rich:panel id="rechercheAffiche" style="box-shadow:2px 2px 2px #a2a5a9;margin-bottom:5%">
+				     <h:panelGrid columns="2">
+				      <rich:panel>
+				      <f:facet name="header">Patient</f:facet>
+				        <h:panelGrid columns="2" style="width:500px">
+				        
+				        <h:outputText value="Code du patient:" /><h:inputText value="#{receptionniste.codePerso}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Nom:" /><h:inputText value="#{receptionniste.nom}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Prenom:" /><h:inputText value="#{receptionniste.prenom}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Date de Naissance:" /><h:inputText value="#{receptionniste.dateNaissance}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Genre:" /><h:inputText value="#{receptionniste.genre}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Téléphone fixe:" /><h:inputText value="#{receptionniste.telFixe}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Téléphone mobile:" /><h:inputText value="#{receptionniste.telMob}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Adresse:" /><h:inputText value="#{receptionniste.adresse}" disabled="true" style="color:blue"/>
+				        <h:outputText value="E-mail:" /><h:inputText value="#{receptionniste.email}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Profession:" /><h:inputText value="#{receptionniste.profession}" disabled="true" style="color:blue"/>
+				        
+				        
+				        
+				        </h:panelGrid>
+				     </rich:panel>
+				     <rich:panel>
+				      <f:facet name="header">Rendez-vous</f:facet>
+				        <h:panelGrid columns="2">
+				        
+				        <h:outputText value="Date d'attribution:" /><h:inputText value="#{receptionniste.dateAttribution}" disabled="true" style="color:blue"/>
+				        <h:outputText value="Service:" /><h:inputText value="#{receptionniste.nomService}" disabled="true" style="color:blue;width:160px"/>
+				        <h:outputText value="Date du rendez-vous:" /><h:inputText value="#{receptionniste.dateRendezVous}" disabled="true" style="color:blue"/>
+				        </h:panelGrid>
+				     </rich:panel>
+				    </h:panelGrid>
+				    </rich:panel>
+ 
+</html>

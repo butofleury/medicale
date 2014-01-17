@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8" />
+  </head>
+
+  <h:form>
+     <rich:panel >
+              <f:facet name="header">Fichier des rendez-vous</f:facet>
+              
+              
+            
+              <a4j:region ajaxSingle="true">
+                
+               <h:panelGrid columns="3">
+              <h:outputText value="Choisissez un patient:" /> <h:inputText value="#{rendez.codePerso}"  id="choixPatient" required="true" requiredMessage="Veuillez choisir le patient!" />
+              <rich:message for="choixPatient" style="color:red;"></rich:message>
+              </h:panelGrid>
+              
+               <rich:suggestionbox width="400" height="300" fetchValue="#{patient.codePerso}"  suggestionAction="#{rendez.suggestionPatient}" var="patient" nothingLabel="Pas de suggestion" for="choixPatient">
+              <rich:column>
+              
+              #{patient.codePerso}
+              </rich:column>
+              
+              <rich:column>
+              
+              #{patient.nom}
+              </rich:column>
+              
+              <rich:column>
+              
+               #{patient.prenom}
+              </rich:column>
+              <a4j:support event="onselect" action="#{rendez.patientSelected}" reRender="formulaire">
+              <f:setPropertyActionListener value="#{patient}" target="#{rendez.selected}" />
+              </a4j:support>
+              </rich:suggestionbox>
+              </a4j:region>
+             
+              
+             
+               <h:panelGrid columns="3" id="formulaire">
+              
+               <h:outputText value="Nom &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:" /> 
+               <h:inputText value="#{rendez.nom}" disabled="true" style="color:blue" required="true"  requiredMessage="Veuillez completer champ nom!" id="nomP"/>
+               <rich:message for="nomP" style="color:red;"></rich:message>
+              <h:outputText value="Prenom:" /> 
+              <h:inputText value="#{rendez.prenom}" disabled="true" style="color:blue" required="true"  requiredMessage="Veuillez completer champ nom!" id="prenom"/>
+               <rich:message for="prenom" style="color:red;"></rich:message>
+              </h:panelGrid>
+              
+             
+
+             
+         
+              <h:outputText value="Date de rendez-vous:" />
+              <a4j:region>
+              <h:panelGrid columns="4">
+              
+              <h:selectOneRadio value="#{rendez.dateChoix}" id="choix" valueChangeListener="#{rendez.dateClicked}" required="true" requiredMessage="Veuillez inserer la date!">
+                   <f:selectItem itemLabel="Choisissez" itemValue="choixVarie"/>
+                   <f:selectItem itemLabel="Aujourd'hui" itemValue="choixToday"/>
+                   <a4j:support event="onchange"/>
+              </h:selectOneRadio><rich:message for="choix" style="color:red;"></rich:message>
+              
+              </h:panelGrid>
+              </a4j:region>
+              <a4j:outputPanel ajaxRendered="true">
+              <h:panelGrid columns="2" rendered="#{rendez.choixVarie}">
+              <h:outputText value="Choix varie:" />
+               
+              <rich:calendar value="#{rendez.dateRendezVs}"  id="date" datePattern="yyyy-MM-dd" required="true" requiredMessage="Veuillez completer champ date du rendez-vous!"/>
+              <rich:message for="date" style="color:red;"></rich:message>
+              
+              </h:panelGrid>
+              
+              </a4j:outputPanel >
+		             
+              <a4j:outputPanel ajaxRendered="true">
+                       <h:panelGrid columns="3" rendered="#{rendez.choixToday}">
+		                  <h:outputText value="Today:" />
+		                  <rich:calendar value="#{rendez.dateRendezVs}" disabled="true"  id="dateToday" datePattern="yyyy-MM-dd" enblrequired="true" requiredMessage="Veuillez completer champ date de naissance!"/>
+                          <rich:message for="dateToday:" style="color:red;"></rich:message>
+		              </h:panelGrid>
+              
+              </a4j:outputPanel>
+              
+              
+              <h:panelGrid columns="3">
+              
+              <h:outputText value="Service:" /> 
+              
+              <h:selectOneMenu value="#{rendez.idService}" id="service" required="true" requiredMessage="Veuillez choisir le service!">
+              <f:selectItem  itemLabel="Selectionner ici:" itemValue=""/>
+              <f:selectItems value="#{rendez.listService}"/>
+              </h:selectOneMenu>
+              <rich:message for="service" style="color:red;"></rich:message> 
+           
+              </h:panelGrid>
+              
+               <rich:spacer height="15"/>
+          <h:panelGrid style="margin:auto">
+            
+             <a4j:commandButton action="#{rendez.saisiRendez}" value="Enregistrer" data="#{rendez.message}" oncomplete="alert(data)" onclick="#{rich:component('nouveauRendez')}.hide()" reRender="afficheRendez"/>
+           </h:panelGrid>
+              
+              
+              
+             
+              </rich:panel>  
+          <rich:toolTip mode="client" followMouse="true"  for="choixPatient">
+					  <h:panelGrid style="width:110px">
+					       Taper dans ce champ le nom,le prenom ou bien le code du patient pour le selectionner et lui attribuer un rendez-vous.					  
+					  </h:panelGrid>
+	     </rich:toolTip>     
+  
+  </h:form>
+</html>
